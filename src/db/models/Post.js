@@ -1,6 +1,6 @@
 import {Model} from "objection";
 import User from "./User.js";
-import Like from "./Like.js";
+import Favori from "./Favori.js";
 
 export default class Post extends Model {
     static tableName = "posts";
@@ -16,27 +16,27 @@ export default class Post extends Model {
         },
         likes: {
             relation: Model.HasManyRelation,
-            modelClass: Like,
+            modelClass: Favori,
             join: {
                 from: "posts.id",
-                to: "likes.postId",
+                to: "favoris.postId",
             }
         }
     }
 
-    // add number of likes to the post
+    // add number of favoris to the post
     async $afterGet(context) {
         await super.$afterGet(context);
-        // check if likes exist
-        if (!this.likes) {
+        // check if favoris exist
+        if (!this.favoris) {
             return;
         }
-        this.likesCount = this.likes.length;
+        this.favorisCount = this.favoris.length;
     }
 
     $formatJson(json) {
         json = super.$formatJson(json)
-        delete json.likes
+        delete json.favoris
         return json
     }
 }

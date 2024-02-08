@@ -1,15 +1,15 @@
 import {Model} from "objection";
 import User from "./User.js";
 
-export default class Like extends Model {
-    static tableName = "likes";
+export default class Favori extends Model {
+    static tableName = "favoris";
 
     static relationMappings = {
         user: {
             relation: Model.BelongsToOneRelation,
             modelClass: User,
             join: {
-                from: "likes.userId",
+                from: "favoris.userId",
                 to: "users.id",
             }
         },
@@ -17,7 +17,7 @@ export default class Like extends Model {
             relation: Model.BelongsToOneRelation,
             modelClass: 'Post',
             join: {
-                from: "likes.postId",
+                from: "favoris.postId",
                 to: "posts.id",
             }
         }

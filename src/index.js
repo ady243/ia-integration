@@ -5,7 +5,7 @@ import knex from "knex";
 import { Model } from "objection";
 import userRoute from "./routes/users.js";
 import postRoute from "./routes/posts.js";
-import likeRoute from "./routes/likes.js";
+import favoriRoute from "./routes/favoris.js";
 
 const app = express();
 const db = knex(config.db);
@@ -19,7 +19,7 @@ app.use(
 app.use(express.json());
 userRoute({ app, db });
 postRoute({ app, db });
-likeRoute({app, db})
+favoriRoute({app, db})
 app.listen(config.port, () => console.log(`listening on:${config.port}`));
 
 export default config;
