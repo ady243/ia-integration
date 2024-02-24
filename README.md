@@ -1,45 +1,71 @@
-# Make migration with knex
-`knex migrate:latest`
+## Backend
 
-# create migration with knex
-`knex migrate:make migration_name`
+## Table of Contents
 
-# rollback migration with knex
-`knex migrate:rollback`
-
-# andpoints for create account 
-`/register`
-
-# andpoint for login 
-`/login`
-
-# andpoint for see all users 
-` /users`
-
-# run project 
-`npm start`
-
-# run docker in detach mode
-
-`docker-compose up -d`
-
-# stop docker
-
-`docker-compose down`
+## General Info
 
 
-# link of Documentation knexJs
+---
+## Prérequis
 
-`http://knexjs.org/`
+Vous devez avoir [Node JS](https://nodejs.org/en/) sur votre machine.
 
-# link of Documentation expressJs
+---
+## Installation
 
-`https://expressjs.com/`
+📦 Il vous faut installer l'ensemble des dépendances avec `npm` en suivant la commande suivante :
 
-# link of Documentation docker
+```bash
+npm install
+```
 
-`https://docs.docker.com/`
+---
 
-# link of Documentation nodemon
 
-`https://nodemon.io/`
+### Configuration de l'application
+
+#### Création du fichier `.env`
+
+Vous pouvez copier le fichier `.env.example` et le renommer `.env` et remplacer les valeurs par défaut par vos propres valeurs.
+
+### Docker
+```bash
+docker-compose up -d 
+```
+
+```bash
+npm run migrate
+```
+
+### Pour lancer les seeds (données de test)
+
+```bash
+npm run seed
+```
+
+### Pour vider la base de données et les migrations
+
+```bash
+npm run reset
+```
+
+> Vous pouvez aussi utiliser la concaténation pour lancer les migrations et les seeds en une seule commande :
+
+```bash
+npm run reset:migrate
+npm run reset:migrate:seed
+```
+
+### ✅ Pour lancer le serveur
+
+- En mode production
+
+```bash
+npm run start
+```
+
+- En mode développement
+
+```bash
+npm run dev
+```
