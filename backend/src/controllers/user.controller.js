@@ -51,7 +51,7 @@ export const createUser = async (req, res, next) => {
 
   const datas = {
     fullName,
-    email,
+    email,  
     password,
     createdAt: createdAt || new Date(),
     updatedAt: updatedAt || new Date(),

@@ -23,28 +23,17 @@ if (env.NODE_ENV === "production") {
 
 if (env.NODE_ENV === "development") {
   dbConfig = {
-    client: env.DB_CLIENT_DEV,
+    client: env.DB_CLIENT,
     connection: {
-      host: env.DB_HOST_DEV,
-      port: env.DB_PORT_DEV,
-      user: env.DB_USER_DEV,
-      password: env.DB_PASSWORD_DEV,
-      database: env.DB_NAME_DEV,
+      host: env.DB_HOST_DEV || "localhost",
+      port: env.DB_PORT_DEV || 5432,
+      user: env.DB_USER_DEV || "postgres",
+      password: env.DB_PASSWORD_DEV || "password",
+      database: env.DB_NAME_DEV || "postgres",
     },
   }
 }
-if (env.NODE_ENV === "test") {
-  dbConfig = {
-    client: env.DB_CLIENT_TEST,
-    connection: {
-      host: env.DB_HOST_TEST,
-      port: env.DB_PORT_TEST,
-      user: env.DB_USER_TEST,
-      password: env.DB_PASSWORD_TEST,
-      database: env.DB_NAME_TEST,
-    },
-  }
-}
+
 
 export default {
   client: dbConfig.client,

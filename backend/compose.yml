@@ -5,9 +5,9 @@ services:
     image: postgres:15.0
     restart: always
     environment:
-      POSTGRES_PASSWORD: rootme
-      POSTGRES_USER: auth_user
-      POSTGRES_DB: auth_db
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
 

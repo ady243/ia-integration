@@ -4,7 +4,7 @@ import config from "./config/config.js"
 import app from "./app.js"
 
 process.on("uncaughtException", (err) => {
-  console.log("UNCAUGHT EXCEPTION! 💥 Shutting down...")
+  console.log("UNCAUGHT EXCEPTION! 💥 Shutting down1...",err)
   console.log(err.name, err.message)
   process.exit(1)
 })
@@ -18,8 +18,8 @@ db.raw("select 1+1 as result")
   .then(() => {
     console.log("👌 Database connected")
   })
-  .catch(() => {
-    console.log("❌ Database connection failed")
+  .catch((error) => {
+    console.log("❌ Database connection failed",error)
     process.exit(1)
   })
 
@@ -32,7 +32,7 @@ app.listen(PORT, () => {
 })
 
 process.on("unhandledRejection", (err) => {
-  console.log("UNHANDLED REJECTION!!!  shutting down ...")
+  console.log("UNHANDLED REJECTION!!!  shutting down2 ...",err)
   console.log(err.name, err.message)
   // eslint-disable-next-line no-undef
   server.close(() => {
