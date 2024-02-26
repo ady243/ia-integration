@@ -69,3 +69,18 @@ npm run start
 ```bash
 npm run dev
 ```
+
+ROUTES
+---
+### Pour créer un utilisateur 
+
+```bash
+api/users/register
+```
+
+### Pour se connecter
+
+```bash
+api/users/login
+```
+
