@@ -4,7 +4,7 @@ const env = process.env
 
 let dbConfig = {}
 
-if (!["production", "development", "test"].includes(env.NODE_ENV)) {
+if (!["production", "development", "test"].includes("development")) {
   throw new Error("Invalid NODE_ENV")
 }
 

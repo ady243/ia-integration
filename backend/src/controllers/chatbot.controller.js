@@ -1,7 +1,6 @@
 import * as conversationService from "../services/conversation.service.js"
 import * as chatbotService from "../services/chatbot.service.js"
 
-import AppError from "../utils/appError.js"
 
 export const conversation = async (req, res, next) => {
   try {
@@ -37,8 +36,7 @@ export const conversation = async (req, res, next) => {
       res.status(200).json(response)
     }
 
-    // console.log(conversation.messages)
-    // res.status(200).json(conversation.messages)
+  
 
     // filter fiels from conversation object
     const conversationHistory = conversation.messages.map((message) => {

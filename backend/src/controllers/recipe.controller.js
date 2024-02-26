@@ -1,6 +1,5 @@
 import * as recipeService from "../services/recipe.service.js"
 
-import AppError from "../utils/appError.js"
 
 export const getAllRecipes = async (req, res, next) => {
   try {

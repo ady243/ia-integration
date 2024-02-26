@@ -1,5 +1,5 @@
-import { Model } from "objection"
 import Conversation from "./conversation.modal.js"
+import { Model } from 'objection';
 
 class Message extends Model {
   static tableName = "messages"
