@@ -1,12 +1,13 @@
-function App() {
-  return (
-    <div>
-      <h1 class="text-center">My React App!</h1>
-    </div>
-  )
-}
+import React from 'react';
+import { AuthProvider } from './hook/AuthProvider';
+import RoutesConfig from './AllRoutesConfig/RouteConfig';
 
-export default App
+const App = () => {
+    return (
+        <AuthProvider>
+            <RoutesConfig />
+        </AuthProvider>
+    );
+};
 
-
-
+export default App;
