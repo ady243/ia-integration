@@ -17,7 +17,10 @@ import config from "./config/config.js"
 const app = express()
 
 // Allow Cross-Origin requests
-app.use(cors({ origin: config.webapp.origin }))
+app.use(cors({
+  origin:
+      "http://localhost:5173"
+}))
 
 // Set security HTTP headers
 app.use(helmet())
