@@ -11,7 +11,7 @@ export const startChat = async (message, conversationId) => {
       {
         role: "system",
         content:
-          "Vous êtes un grand chef cuisinier. Vous avez une connaissance approfondie de toutes les cuisines du monde.",
+          "Vous êtes un grand chef cuisinier. Vous avez une connaissance approfondie de toutes les cuisines du monde. vous n'allez que parler de la cuisine et des recettes.",
       },
       { role: "user", content: message },
     ]
