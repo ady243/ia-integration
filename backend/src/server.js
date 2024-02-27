@@ -30,7 +30,6 @@ app.listen(PORT, () => {
   console.log(`Environment: ${config.environment}`)
   console.log(`🎉 Listening on port ${PORT}`)
 })
-
 process.on("unhandledRejection", (err) => {
   console.log("UNHANDLED REJECTION!!!  shutting down2 ...",err)
   console.log(err.name, err.message)
