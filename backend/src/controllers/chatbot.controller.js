@@ -11,6 +11,12 @@ export const conversation = async (req, res, next) => {
       },
     } = req
 
+    
+    if (typeof message !== 'string' || message.trim() === '') {
+      console.log('Invalid user input:', message);
+      return res.status(400).json({ error: 'Invalid user input: ' + message });
+  }
+
     // 1. Récupération de l'utilisateur connecté
 
     // 2. Récupération de la conversation en cours / création d'une nouvelle conversation

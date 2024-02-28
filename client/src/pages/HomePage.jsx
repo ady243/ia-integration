@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../hook/AuthProvider';
+import ChatBot from './ChatBotPage';
 
 export const HomePage = () => {
     const { currentUser } = useContext(AuthContext); 
@@ -8,6 +9,8 @@ export const HomePage = () => {
         <div>
             <h1>Home Page</h1>
             <p>Current User: {currentUser ? currentUser.fullName : 'None'}</p> 
+
+            <ChatBot />
         </div>
     );
 }
