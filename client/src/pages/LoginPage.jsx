@@ -77,6 +77,11 @@ const LoginPage = () => {
             <h1>Login Page</h1>
         <div className="bg-white rounded px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
           <FormBuilder fields={fields} />
+
+
+            <p className="text-sm text-gray-600 mt-4">
+                Don't have an account? <a href="/register" className="text-indigo-600 hover:text-indigo-700">Register</a>
+            </p>
         </div>
     
         </div>
