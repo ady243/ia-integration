@@ -1,38 +1,17 @@
 import React, {useState, useContext} from 'react';
 import FormBuilder from '../components/FormBuilder';
-import { API_URL } from '../configUrl';
-import { AuthContext } from '../hook/AuthProvider';
+import { HookContext } from '../hook/HookProvider';
 import { useNavigate } from 'react-router-dom';
+import ChatBot from './ChatBotPage';
 
 const LoginPage = () => {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { saveToken, saveCurrentUser } = useContext(AuthContext); 
+    const { login } = useContext(HookContext); 
     const navigate = useNavigate();
 
-    const loginUser = (email, password) => {
-        fetch(
-            `${API_URL}/api/users/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-            }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            saveToken(data.token); 
-            saveCurrentUser(data.user); 
-            console.log('token saved', data.token);
-           navigate('/home');
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-    }
+ 
     
     const inputStyle = { 
         width: '400px',
@@ -76,10 +55,17 @@ const LoginPage = () => {
             onChange: (e) => setPassword(e.target.value), 
             style: inputStyle
         },
-        { 
+        {
             type: 'button', 
             label: 'Login', 
-            onClick: () => loginUser(email, password),
+            onClick: async () => {
+                try {
+                    await login(email, password);
+                    navigate('/');
+                } catch (error) {
+                    console.error(error);
+                }
+            },
             style: buttonLogin
         }
     ];
@@ -92,7 +78,7 @@ const LoginPage = () => {
         <div className="bg-white rounded px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
           <FormBuilder fields={fields} />
         </div>
-            
+    
         </div>
     );
 };

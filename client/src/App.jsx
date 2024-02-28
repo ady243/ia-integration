@@ -1,12 +1,12 @@
 import React from 'react';
-import { AuthProvider } from './hook/AuthProvider';
+import { HookProvider } from './hook/HookProvider';
 import RoutesConfig from './AllRoutesConfig/RouteConfig';
 
 const App = () => {
     return (
-        <AuthProvider>
+        <HookProvider>
             <RoutesConfig />
-        </AuthProvider>
+        </HookProvider>
     );
 };
 

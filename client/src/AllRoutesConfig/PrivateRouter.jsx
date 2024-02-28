@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../hook/AuthProvider';
+import { HookContext } from '../hook/HookProvider';
 
 const PrivateRouter = ({ children }) => {
-    const { token } = useContext(AuthContext);
+    const { token } = useContext(HookContext);
     const navigate = useNavigate();
 
     useEffect(() => {

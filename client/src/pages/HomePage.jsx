@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../hook/AuthProvider';
+import { HookContext } from '../hook/HookProvider';
 import ChatBot from './ChatBotPage';
 
 export const HomePage = () => {
-    const { currentUser } = useContext(AuthContext); 
+    const { currentUser } = useContext(HookContext); 
 
     return (
         <div>
