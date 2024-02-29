@@ -11,13 +11,15 @@ export const conversation = async (req, res, next) => {
       },
     } = req
 
-    
     // 1. Récupération de l'utilisateur connecté
 
     // 2. Récupération de la conversation en cours / création d'une nouvelle conversation
     const conversations = await conversationService.findAllByUserId(
       currentUserId
     )
+    // console.log("currentUserId", currentUserId)
+
+    // console.log("conversations", conversations)
 
     const conversation = conversations[0]
       ? conversations[0]
@@ -30,9 +32,12 @@ export const conversation = async (req, res, next) => {
     const messages = await conversationService.getMessages(conversation.id)
     conversation.messages = messages
 
+    console.log("messages", messages)
+    console.log("conversation", conversation)
     // 3. Appel du service pour démarrer la conversation
     // check if conversation has started or not (messages exist or not)
     if (conversation.messages.length === 0) {
+      console.log("message start", message)
       const response = await chatbotService.startChat(message, conversation.id)
       res.status(200).json(response)
     }
@@ -41,6 +46,7 @@ export const conversation = async (req, res, next) => {
 
     // filter fiels from conversation object
     const conversationHistory = conversation.messages.map((message) => {
+      console.log("message", message)
       return {
         role: message.role,
         content: message.content,

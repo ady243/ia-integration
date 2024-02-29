@@ -95,8 +95,9 @@ export const HookProvider = ({ children }) => {
                 body: JSON.stringify({ description })
             });
             const data = await response.json();
-            console.log('chatbot data : ', data);
-            setData(data);
+            console.log('chatbot data : ', data?.conversationHistory);
+            setData(data?.conversationHistory);
+            return data?.conversationHistory;
         } catch (error) {
             console.error(error);
         }
