@@ -1,9 +1,9 @@
 
 import React, {useState, useContext} from 'react';
 import FormBuilder from '../components/FormBuilder';
-import { HookContext } from '../hook/HookProvider';
+import { HookContext } from '../hook/useHookProvider';
 import { useNavigate } from 'react-router-dom';
-import ChatBot from './ChatBotPage';
+
 
 
 const RegisterPage = () => {
@@ -11,6 +11,7 @@ const RegisterPage = () => {
     const [email, setEmail] = useState('');
     const [fullName, setFullName] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
     const { register } = useContext(HookContext); 
     const navigate = useNavigate();
 
@@ -76,7 +77,7 @@ const RegisterPage = () => {
                     await register(email, password, fullName);
                     navigate('/login');
                 } catch (error) {
-                    console.error(error);
+                    setError(error);
                 }
             },
             style: buttonRegister
@@ -87,13 +88,18 @@ const RegisterPage = () => {
         <>
         <div className='text-center mt-12'>
             <h1>Register</h1>
-        <div className="bg-white rounded px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
-          <FormBuilder fields={fields} />
-            <p className="text-sm text-gray-600 mt-4">
-          Already have account? <a href="/login" className="text-indigo-600 hover:text-indigo-700">Login</a>
-            </p>
-        </div>
-    
+        
+            {error && (
+                <div className="error-message">
+                    <p>{error.message}</p>
+                </div>
+            )}
+            <div className="bg-white rounded px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
+                <FormBuilder fields={fields} />
+                <p className="text-sm text-gray-600 mt-4">
+                    Already have account? <a href="/login" className="text-indigo-600 hover:text-indigo-700">Login</a>
+                </p>
+            </div>
         </div>
         </>
        

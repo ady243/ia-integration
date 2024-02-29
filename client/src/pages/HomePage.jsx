@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { HookContext } from '../hook/HookProvider';
+import { HookContext } from '../hook/useHookProvider';
 import ChatBot from './ChatBotPage';
 
 export const HomePage = () => {

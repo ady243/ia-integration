@@ -2,25 +2,28 @@ import React, { useState, useEffect, useContext } from 'react';
 import Button from '../components/Button';
 import { LuSendHorizonal } from "react-icons/lu";
 import { SiChatbot } from "react-icons/si";
-import { HookContext } from '../hook/HookProvider';
+import { HookContext } from '../hook/useHookProvider';
 
 const ChatBot = () => {
-    const {setUserInput } = useContext(HookContext);
+    const { chatbot } = useContext(HookContext);
     const [data, setData] = useState({message: ''});
     const [isOpen, setIsOpen] = useState(false);
     const [conversationHistory, setConversationHistory] = useState([]);
+    const [userChatMessage, setUserChatMessage] = useState('');
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
     };
 
-    useEffect(() => {
-        if (isOpen) {
-            setConversationHistory(prevHistory =>
-                 [...prevHistory, { role: 'assistant',
-                  content: 'Bonjour, je suis Ady. En quoi puis-je vous aider ?' }]);
-        }
-    }, [isOpen]);
+    const handleSubmit = () => {
+        // Start the conversation call api 
+    
+        chatbot(userChatMessage).then((response) => {
+            setData(response);
+            setConversationHistory([...conversationHistory, response]);
+        });
+
+    }
 
     return (
         <div className="fixed bottom-5 right-5">
@@ -56,12 +59,11 @@ const ChatBot = () => {
                     <div >
                     <input 
                         type="text" 
-                        onChange={e => setUserInput(e.target.value)} 
+                        onChange={e => setUserChatMessage(e.target.value)}
                         placeholder="Tapez votre message ici"
                        className='w-full p-2 mt-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-                       
                     />
-                    <Button onClick={() => setUserInput('')} text={<LuSendHorizonal />}/>
+                    <Button onClick={() => handleSubmit()} text={<LuSendHorizonal />}/>
 
                     </div>
                    
