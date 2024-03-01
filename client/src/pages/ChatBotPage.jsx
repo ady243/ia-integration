@@ -3,6 +3,7 @@ import Button from '../components/Button';
 import { LuSendHorizonal } from "react-icons/lu";
 import { SiChatbot } from "react-icons/si";
 import { HookContext } from '../hook/useHookProvider';
+import DotLoad from '../components/load/DotLoad';
 
 const ChatBot = () => {
     const { chatbot } = useContext(HookContext);
@@ -74,28 +75,27 @@ const ChatBot = () => {
               </button>
             </div>
 
-            <div className="flex flex-col space-y-2 w-full">
-              {conversationHistory && conversationHistory.map((item, index) => (
-                <div
-                  key={index}
-                  className={`${
-                    item.role === "user"
-                      ? "ml-auto bg-blue-500"
-                      : "mr-auto bg-gray-300"
-                  } p-2.5 rounded-md`}
-                >
-                  <p>{item.content}</p>
-                </div>
-              ))}
-              {loading && (
-                <div className="flex justify-center">
-                  <div className="animate-bounce w-10 h-10 ">
-                    <p className='text-2xl'>...</p>
-                  </div>
-                </div>
-              )}
-            </div>
-
+            <div className="flex flex-col space-y-2 w-full h-80 overflow-y-auto border border-gray-300 rounded-lg p-2">
+                    {conversationHistory && conversationHistory.map((item, index) => (
+                        <div
+                        key={index}
+                        className={`${
+                            item.role === "user"
+                            ? "ml-auto bg-blue-500 text-sm text-white" 
+                            : "mr-auto bg-gray-300 text-sm" 
+                        } p-2 rounded-md`}
+                        >
+                        <p>{item.content}</p>
+                        </div>
+                    ))}
+                    {loading && (
+                        <div className="flex justify-center">
+                        <div >
+                            <DotLoad />
+                        </div>
+                        </div>
+                    )}
+                    </div>          
             <div>
               <input
                 type="text"

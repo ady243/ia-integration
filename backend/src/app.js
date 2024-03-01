@@ -8,11 +8,11 @@ import cors from "cors"
 import userRoutes from "./routes/user.routes.js"
 import recipeRoutes from "./routes/recipe.routes.js"
 import chatbotRoutes from "./routes/chatbot.routes.js"
+import allergyRoutes from "./routes/allergy.routes.js"
 
 import globalErrHandler from "./controllers/error.controller.js"
 import AppError from "./utils/appError.js"
 
-import config from "./config/config.js"
 
 const app = express()
 
@@ -65,6 +65,7 @@ app.get("/", async (req, res) => {
 app.use("/api/users", userRoutes)
 app.use("/api/recipes", recipeRoutes)
 app.use("/api/chatbot", chatbotRoutes)
+app.use("/api/allergy", allergyRoutes)
 
 // handle undefined Routes
 app.use("*", (req, res, next) => {
