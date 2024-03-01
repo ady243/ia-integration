@@ -95,7 +95,7 @@ const ChatBot = () => {
                         </div>
                         </div>
                     )}
-                    </div>          
+            </div>          
             <div>
               <input
                 type="text"
