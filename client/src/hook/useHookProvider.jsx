@@ -60,19 +60,12 @@ export const HookProvider = ({ children }) => {
     }
 
     const logout = () => {
-        saveToken(null);
-        saveCurrentUser(null);
+        setToken(null);
+        setCurrentUser(null);
+        localStorage.removeItem('token');
     };
 
     useEffect(() => {
-        // if (token) {
-        //     fetch(`${API_URL}/api/users/me`, {
-        //         headers: { 'Authorization': `Bearer ${token}` }
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => saveCurrentUser(data))
-        //     .catch(error => console.error(error));
-        // }
     }, [token]);
 
     const chatbot = async (description) => {

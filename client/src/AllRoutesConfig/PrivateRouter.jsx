@@ -3,14 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { HookContext } from '../hook/useHookProvider';
 
 const PrivateRouter = ({ children }) => {
-    const { token } = useContext(HookContext);
+    const { token, saveToken } = useContext(HookContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!token) {
+        const tokenLocalStorage = localStorage.getItem('token');
+        console.log('tokenLocalStorage', tokenLocalStorage);
+        if (tokenLocalStorage) {
+            saveToken(tokenLocalStorage);
+        } else {
             navigate('/login');
         }
-    }, [token, navigate]);
+    }, [navigate, saveToken]);
 
     return token ? children : null;
 };
