@@ -10,7 +10,7 @@ import recipeRoutes from "./routes/recipe.routes.js"
 import chatbotRoutes from "./routes/chatbot.routes.js"
 import allergyRoutes from "./routes/allergy.routes.js"
 import sidedishRoutes from "./routes/sidedish.routes.js"
-
+import grocerylistRoutes from "./routes/grocerylist.routes.js"
 
 import globalErrHandler from "./controllers/error.controller.js"
 import AppError from "./utils/appError.js"
@@ -69,6 +69,7 @@ app.use("/api/recipes", recipeRoutes)
 app.use("/api/chatbot", chatbotRoutes)
 app.use("/api/allergy", allergyRoutes)
 app.use("/api/sidedish", sidedishRoutes)
+app.use("/api/grocerylist", grocerylistRoutes)
 
 
 // handle undefined Routes

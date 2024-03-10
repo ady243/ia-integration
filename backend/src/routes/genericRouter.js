@@ -3,9 +3,7 @@ import recipeRouter from "./recipe.routes.js";
 import chatbotRouter from "./chatbot.routes.js";
 import allergyRouter from "./allergy.routes.js";
 import sidedishRouter from "./sidedish.routes.js";
-
-
-
+import grocerylistRouter from "./grocerylist.routes.js";
 
 export default {
     userRouter,
@@ -13,4 +11,5 @@ export default {
     chatbotRouter,
     allergyRouter,
     sidedishRouter,
+    grocerylistRouter
 };
