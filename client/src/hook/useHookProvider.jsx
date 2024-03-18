@@ -95,6 +95,40 @@ export const HookProvider = ({ children }) => {
             console.error(error);
         }
     }
+    
+
+    const getConversationHistory = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/chatbot/conversations`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': token
+                }
+            });
+            const data = await response.json();
+            console.log('conversation history data : ', data);  
+            setData(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const deleteConversationHistory = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/chatbot/conversations`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': token
+                },
+                method: 'DELETE'
+            });
+            const data = await response.json();
+            console.log('delete conversation history data : ', data);
+            setData(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     useEffect(() => {
         if (userInput) {
@@ -103,7 +137,7 @@ export const HookProvider = ({ children }) => {
     }, [token, userInput]); 
 
     return (
-        <HookContext.Provider value={{ token, saveToken, currentUser, saveCurrentUser, login, logout, register, data, userInput, setUserInput, chatbot}}>
+        <HookContext.Provider value={{ token, saveToken, currentUser, saveCurrentUser, login, logout, register, data, userInput, setUserInput, chatbot, getConversationHistory, deleteConversationHistory}}>
             {children}
         </HookContext.Provider>
     );

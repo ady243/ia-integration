@@ -42,3 +42,11 @@ export const findAllByUserId = async (userId) => {
     throw error
   }
 }
+
+export const deleteConversation = async (conversationId) => {
+  try {
+    return await Conversation.query().deleteById(conversationId)
+  } catch (error) {
+    throw error
+  }
+}

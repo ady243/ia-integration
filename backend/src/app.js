@@ -67,6 +67,7 @@ app.use("/api/recipes", recipeRoutes)
 app.use("/api/chatbot", chatbotRoutes)
 app.use("/api/allergy", allergyRoutes)
 
+
 // handle undefined Routes
 app.use("*", (req, res, next) => {
   const err = new AppError(404, "fail", "undefined route")
