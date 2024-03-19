@@ -84,3 +84,20 @@ export const deleteAllergy = async (req, res, next) => {
     next(error)
   }
 }
+
+export const getAllergiesByUserId = async (req, res, next) => {
+  try {
+    const { params: { userId } } = req;
+
+    if (!userId || !Number(userId)) {
+      throw new AppError(404, "fail", "Missing user id");
+    }
+
+    const allergies = await allergyService.findAllByUserId(userId);
+
+    //console.log("Allergies : ", allergies.map(objet => objet.allergen).join(", ")); 
+    res.status(200).json(allergies.map(objet => objet.allergen));
+  } catch (error) {
+    next(error);
+  }
+}

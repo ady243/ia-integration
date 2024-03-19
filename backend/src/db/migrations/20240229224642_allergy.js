@@ -5,8 +5,8 @@
 export const up = function(knex) {
     return knex.schema.createTable('allergy', function(table) {
       table.increments('id');
-      table.string('allergen'); 
-      table.integer('user_id').unsigned().notNullable();
+      table.string('allergen').nullable(); 
+      table.integer('user_id').unsigned().nullable();
   
       table.foreign('user_id').references('id').inTable('users');
     });

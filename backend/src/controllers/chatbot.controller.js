@@ -32,13 +32,11 @@ export const conversation = async (req, res, next) => {
     const messages = await conversationService.getMessages(conversation.id)
     conversation.messages = messages
 
-    console.log("messages", messages)
-    console.log("conversation", conversation)
     // 3. Appel du service pour démarrer la conversation
     // check if conversation has started or not (messages exist or not)
     if (conversation.messages.length === 0) {
-      console.log("message start", message)
-      const response = await chatbotService.startChat(message, conversation.id)
+      //console.log("message start", message)
+      const response = await chatbotService.startChat(message, conversation.id, currentUserId)
       res.status(200).json(response)
     }
 
@@ -46,7 +44,7 @@ export const conversation = async (req, res, next) => {
 
     // filter fiels from conversation object
     const conversationHistory = conversation.messages.map((message) => {
-      console.log("message", message)
+      //console.log("message", message)
       return {
         role: message.role,
         content: message.content,

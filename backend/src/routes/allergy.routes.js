@@ -6,11 +6,10 @@ const router = express.Router()
 
 router.post("/allergy", allergyController.createAllergy)
 
-router.route("/allergy").get(auth, allergyController.getAllAllergies)
-router
-  .route("/:id")
-  .get(auth, allergyController.getAllergy)
-  .put(auth, allergyController.updateAllergy)
-  .delete(auth, allergyController.deleteAllergy)
+router.get("/allergy", allergyController.getAllergy)
+
+router.get("/getAllAllergies", auth, allergyController.getAllAllergies)
+
+router.get("/getAllAllergiesByUser/:userId", auth, allergyController.getAllergiesByUserId)
 
 export default router
