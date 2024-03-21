@@ -1,34 +1,59 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// CustomNavbar.js
+// import React, { useState } from "react";
+import {
+  Navbar as BootstrapNavbar,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Sidebar from "./Sidebar";
+import SearchBar from "./SearchBar";
+import React, { useContext, useState } from "react";
+import HomePage from "../pages/HomePage";
 
-const Navbar = () => {
+const CustomNavbar = () => {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearchInput = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    // Logique de soumission de la recherche
+  };
+
+  const handleRoute = (route) => {
+    // Logique de routage
+  };
+
+  // const { currentUser } = useContext(HookContext);
+  const [visible, setVisible] = useState(false);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container">
-                <a className="navbar-brand" href="#">Logo</a>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">About</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Services</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    );
+    <div style={{ display: "flex" }}>
+      {/* Intégration du composant Sidebar */}
+      <Sidebar />
+      {/* Contenu principal */}
+      <div style={{ flex: 1 }}>
+        <BootstrapNavbar style={{ backgroundColor: "#712cf9", height: "74px" }}>
+          <Nav className="mr-auto">
+            {/* <Nav.Link onClick={() => handleRoute("/")} style={{  color:"white"}}>Accueil</Nav.Link>
+            <Nav.Link onClick={() => handleRoute("/about")} style={{  color:"white"}}>A propos</Nav.Link> */}
+          </Nav>
+          <Form>
+            <SearchBar />
+          </Form>
+        </BootstrapNavbar>
+        {/* Contenu principal de votre application */}
+        <div style={{ padding: "20px" }}>
+          {/* Placez votre contenu principal ici */}
+          
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Navbar;
+export default CustomNavbar;

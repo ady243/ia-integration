@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Navbar as BootstrapNavbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
@@ -13,15 +15,19 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}  >
       <input
+      style={{  height: "40px" , width: "300px" , marginLeft: "20px" ,  borderRadius: "8%"}} 
         type="text"
         placeholder="Rechercher une recette..."
         value={query}
         onChange={handleChange}
       />
-      <button type="submit">Rechercher</button>
+      <button type="submit" variant="outline-info"   >ok</button>
     </form>
+
+   
+
   );
 };
 

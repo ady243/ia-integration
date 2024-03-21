@@ -1,18 +1,19 @@
 // import { HookProvider } from './hook/useHookProvider';
 // import RoutesConfig from './AllRoutesConfig/RouteConfig';
 
+import { Navbar } from 'react-bootstrap';
 import HomePage from '../src/pages/HomePage';
-import Navbar from '../src/components/Navbar';
-import Sidebar from '../src/components/Sidebar';
+import React from 'react';
 
 const App = () => {
     return (
 
-        <HomePage />
+       <HomePage />
         // <HookProvider>
-        //     <RoutesConfig />
+        // <RoutesConfig />
         // </HookProvider>       
            
+        
 
     
 
