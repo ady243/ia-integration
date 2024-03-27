@@ -4,9 +4,10 @@ import Message from "../db/models/message.model.js"
 const env = process.env
 const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
 
+
+//On démarre la conversation
 export const startChat = async (message, conversationId) => {
   try {
-    // Inclure un message de système avec le contexte désiré
     const messages = [
       {
         role: "system",
@@ -16,14 +17,19 @@ export const startChat = async (message, conversationId) => {
       { role: "user", content: message },
     ]
 
+
+    //On envoie la conversation à OpenAI
     const completion = await openai.chat.completions.create({
       messages: messages,
       model: "gpt-3.5-turbo",
     })
 
+
+    //On récupère le rôle et le contenu du message de l'assistant
     const role = completion.choices[0].message.role
     const content = completion.choices[0].message.content
-    // save the message in the database
+
+     //
     const userMessageCreated = await Message.query().insert({
       role: "user",
       content: message,
@@ -31,6 +37,8 @@ export const startChat = async (message, conversationId) => {
       created_at: new Date().toISOString(),
     })
 
+
+    //
     const chatbotMessageCreated = await Message.query().insert({
       role,
       content,
@@ -38,34 +46,39 @@ export const startChat = async (message, conversationId) => {
       created_at: new Date().toISOString(),
     })
 
-    return { userMessageCreated, chatbotMessageCreated }
+    //On retourne le message de l'utilisateur et celui de l'assistant
+    return { userMessageCreated, chatbotMessageCreated, conversation: messages }
   } catch (error) {
     throw error
   }
 }
 
+
+//On continue la conversation
 export const continueChat = async (
   newMessage,
   conversationHistory = [],
   conversationId
 ) => {
   try {
-    // Ajouter le nouveau message de l'utilisateur à l'historique de la conversation
     conversationHistory.push({ role: "user", content: newMessage })
 
-    // Créer une conversation avec l'historique complet, y compris le nouveau message
+    //On envoie la conversation à OpenAI
     const completion = await openai.chat.completions.create({
       messages: conversationHistory,
       model: "gpt-3.5-turbo",
     })
 
-    // Extraire la réponse de l'IA
+
+    //On récupère le message de l'assistant
     const response = completion.choices[0].message.content
 
-    // Ajouter la réponse de l'IA à l'historique pour la prochaine itération
+
+    //On ajoute le message de l'assistant
     conversationHistory.push({ role: "assistant", content: response })
 
-    // Sauvegarder les nouveaux messages dans la base de données
+
+    //On ajoute le message de l'utilisateur
     const userMessageCreated = await Message.query().insert({
       role: "user",
       content: newMessage,
@@ -73,6 +86,7 @@ export const continueChat = async (
       created_at: new Date().toISOString(),
     })
 
+    //On ajoute le message de l'assistant
     const chatbotMessageCreated = await Message.query().insert({
       role: "assistant",
       content: response,
@@ -80,8 +94,7 @@ export const continueChat = async (
       created_at: new Date().toISOString(),
     })
 
-    // Retourner la réponse et l'historique mis à jour pour un suivi
-    return { response, conversationHistory }
+    return { response, conversationHistory, conversation: conversationHistory }
   } catch (error) {
     throw error
   }
