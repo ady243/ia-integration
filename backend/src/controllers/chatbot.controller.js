@@ -35,11 +35,10 @@ export const conversation = async (req, res, next) => {
     // 3. Appel du service pour démarrer la conversation
     // check if conversation has started or not (messages exist or not)
     if (conversation.messages.length === 0) {
-      //console.log("message start", message)
-      const response = await chatbotService.startChat(message, conversation.id, currentUserId)
-      res.status(200).json(response)
+      console.log("message start", message)
+      const response = await chatbotService.startChat(message, conversation.id)
+      return res.status(200).json(response) 
     }
-
   
 
     // filter fiels from conversation object
@@ -63,3 +62,79 @@ export const conversation = async (req, res, next) => {
     next(error)
   }
 }
+
+
+export const getConversation = async (req, res, next) => {
+  try {
+    const {
+      session: {
+        user: { id: currentUserId },
+      },
+    } = req
+
+    // 1. Récupération de l'utilisateur connecté
+    // 2. Récupération de la conversation en cours / création d'une nouvelle conversation
+    const conversations = await conversationService.findAllByUserId(
+      currentUserId
+    )
+
+    const conversation = conversations[0]
+      ? conversations[0]
+      : await conversationService.create({
+          user_id: currentUserId,
+          created_at: new Date().toISOString(),
+        })
+
+    // get conversation messages
+    const messages = await conversationService.getMessages(conversation.id)
+    conversation.messages = messages
+
+    res.status(200).json(conversation)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+
+export const deleteConversation = async (req, res, next) => {
+
+
+  //je veux supprimer la conversation
+  //je veux supprimer les messages de la conversation
+
+  try {
+    const {
+      session: {
+        user: { id: currentUserId },
+      },
+    } = req
+
+    // 1. Récupération de l'utilisateur connecté
+    // 2. Récupération de la conversation en cours / création d'une nouvelle conversation
+    const conversations = await conversationService.findAllByUserId(
+      currentUserId
+    )
+
+    const conversation = conversations[0]
+      ? conversations[0]
+      : await conversationService.create({
+          user_id: currentUserId,
+          created_at: new Date().toISOString(),
+        })
+
+    // get conversation messages
+    const messages = await conversationService.getMessages(conversation.id)
+    conversation.messages = messages
+
+    // 3. Appel du service pour supprimer la conversation
+    const response = await conversationService.deleteConversation(conversation.id)
+
+    res.status(200).json(response)
+  } catch (error) {
+    next(error)
+  }
+
+
+
+} 

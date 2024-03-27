@@ -5,5 +5,7 @@ import auth from "../middlewares/auth.middleware.js"
 const router = express.Router()
 
 router.post("/", auth, chatbotController.conversation)
+router.get("/conversations", auth, chatbotController.getConversation)
+router.delete("/conversations", auth, chatbotController.deleteConversation)
 
 export default router

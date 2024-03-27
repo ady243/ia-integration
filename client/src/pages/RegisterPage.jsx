@@ -74,7 +74,7 @@ const RegisterPage = () => {
             label: 'create account', 
             onClick: async () => {
                 try {
-                    await register(email, password, fullName);
+                    await register(fullName, email, password);
                     navigate('/login');
                 } catch (error) {
                     setError(error);
