@@ -1,9 +1,24 @@
-import Allergy from "../db/models/Allergy.js";
+import Allergy from "../db/models/allergy.model.js";
 import AppError from "../utils/appError.js";
+import APIFeatures from "../utils/apiFeatures.js"
 
 export const findOneByField = async (field, value) => {
   const allergy = await Allergy.query().findOne({ [field]: value });
   return allergy;
+};
+
+export const findAllByUserId = async (userId) => {
+  try {
+    const allergies = await Allergy.query().where('user_id', userId);
+
+    if (!allergies) {
+      throw new AppError(404, "fail", "No allergies found with that id");
+    }
+
+    return allergies;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const findAll = async (queryString) => {
