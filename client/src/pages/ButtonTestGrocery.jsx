@@ -1,7 +1,7 @@
 import  { useState } from 'react';
 import Button from '../components/Button.jsx';
 import Modal from '../components/Modal.jsx';
-import axios from "axios"
+
 
 import { API_URL } from '../configUrl';
 
