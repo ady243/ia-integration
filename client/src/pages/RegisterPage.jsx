@@ -57,7 +57,7 @@ const RegisterPage = () => {
             placeholder: 'Email',
             required: true,
             value: email, 
-            onChange: (e) => setEmail(e.target.value),
+            onChange: (e) => setEmail(e.target.values),
             style: inputStyle
         },
         {
