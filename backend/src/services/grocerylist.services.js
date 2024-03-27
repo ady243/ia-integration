@@ -7,8 +7,6 @@ export const generateGroceryList = async () => {
 
     const recipes = [
         "nem",
-        "pondu",
-        "fufu"
     ]
     try {
         // Inclure un message de système avec le contexte désiré
@@ -16,7 +14,7 @@ export const generateGroceryList = async () => {
             {
                 role: 'system',
                 content:
-                    "Vous allez devoir la liste de course en rapport avec la recette . Vous avez une connaissance approfondie de toutes les cuisines du monde, vous ne traitez pas d'autres sujets autres que la cuisine",
+                    "Vous allez devoir générer la liste de course en rapport avec la recette et cela sous forme de liste à puce. Vous avez une connaissance approfondie de toutes les cuisines du monde, vous ne traitez pas d'autres sujets autres que la cuisine",
             },
             { role: 'user',
                 content: `Je recherche la liste des courses pour cette "${recipes.join(",")}".` }, // Message de recherche de recette

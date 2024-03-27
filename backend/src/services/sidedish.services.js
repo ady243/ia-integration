@@ -7,8 +7,6 @@ export const generateSideDish = async () => {
 
     const recipes = [
         "nem",
-        "pondu",
-        "fufu"
     ]
     try {
         // Inclure un message de système avec le contexte désiré
@@ -16,7 +14,7 @@ export const generateSideDish = async () => {
             {
                 role: 'system',
                 content:
-                    "Vous allez devoir recommandé du vin, des desserts ou des fromages en rapport avec la recette . Vous avez une connaissance approfondie de toutes les cuisines du monde, vous ne traitez pas d'autres sujets autres que la cuisine",
+                    "Vous allez devoir recommandé du vin, des desserts ou des fromages en rapport avec la recette sans description . Vous avez une connaissance approfondie de toutes les cuisines du monde, vous ne traitez pas d'autres sujets autres que la cuisine",
             },
             { role: 'user',
                 content: `Je recherche des accompagnements pour cette "${recipes.join(",")}".` }, // Message de recherche de recette
