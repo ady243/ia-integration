@@ -15,6 +15,10 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "../components/Sidebar";
 import SearchBar from "../components/SearchBar";
+import SearchResult from "../components/SearchResult";
+import SearchResultList from "../components/SearchResultList";
+import RecipeCard from "../components/RecipeCard";
+import RecipePage from "./RecipePage";
 
 
 
@@ -35,7 +39,16 @@ export const HomePage = () => {
   const handleRoute = (route) => {
     // Logique de routage
   };
+  const [searchResults, setSearchResults] = useState([]);
 
+
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (query) => {
+    setSearchTerm(query);
+  };
+
+  const [results, setResults] = useState([]);
 
 
   return (
@@ -44,15 +57,16 @@ export const HomePage = () => {
     {/* Intégration du composant Sidebar */}
     <Sidebar />
     {/* Contenu principal */}
-    <div style={{ flex: 1 }}>
-      <BootstrapNavbar style={{ backgroundColor: "#712cf9", height: "74px" }}>
+    <div style={{ display: 1}}>
+      <BootstrapNavbar style={{ backgroundColor: "#712cf9", height: "74px", display: "ruby-text"}}>
         <Nav className="mr-auto">
           {/* <Nav.Link onClick={() => handleRoute("/")} style={{  color:"white"}}>Accueil</Nav.Link>
           <Nav.Link onClick={() => handleRoute("/about")} style={{  color:"white"}}>A propos</Nav.Link> */}
         </Nav>
         <Form>
-          <SearchBar />
+          <SearchBar setResults={setResults} />
         </Form>
+
       </BootstrapNavbar>
       {/* Contenu principal de votre application */}
       <div style={{ padding: "20px" }}>
@@ -72,14 +86,28 @@ export const HomePage = () => {
    <div className="row">
      <div className="col">
        <div className="p-5 text-center bg-light">
-         <h1 className="mb-3">I am learning Bootstrap</h1>
-         <h4 className="mb-4">... and it's awesome!</h4>
-         <a className="btn btn-primary btn-lg" href="https://getbootstrap.com/docs/5.1/getting-started/introduction/" role="button">
-           Learn with me
+         <h1 className="mb-3"><strong>Recettes, idées d'activités et astuces pour manger mieux et bouger plus petit à petit </strong></h1>
+     
+         <a className="btn btn-primary btn-lg" href="#" role="button">
+          Plus de recettes
          </a>
        </div>
      </div>
    </div>
+
+
+   <SearchBar setResults={setSearchResults} />
+      <SearchResultList results={searchResults} />
+
+
+      <div className="row mt-5">
+     <div className="col-md">
+     <RecipePage />
+     <RecipeCard />
+     </div>
+     </div>
+
+
    <div className="row mt-5">
      <div className="col-md">
        <div className="card">
@@ -140,3 +168,5 @@ export const HomePage = () => {
 
 
 export default HomePage;
+
+

@@ -8,12 +8,15 @@ import React from 'react';
 const App = () => {
     return (
 
-       <HomePage />
+      
+      
         // <HookProvider>
         // <RoutesConfig />
         // </HookProvider>       
            
-        
+        <> 
+         <HomePage />
+        </>
 
     
 

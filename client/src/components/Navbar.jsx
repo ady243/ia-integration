@@ -11,7 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import React, { useContext, useState } from "react";
-import HomePage from "../pages/HomePage";
+
 
 const CustomNavbar = () => {
   const [searchText, setSearchText] = useState("");
@@ -42,7 +42,7 @@ const CustomNavbar = () => {
             {/* <Nav.Link onClick={() => handleRoute("/")} style={{  color:"white"}}>Accueil</Nav.Link>
             <Nav.Link onClick={() => handleRoute("/about")} style={{  color:"white"}}>A propos</Nav.Link> */}
           </Nav>
-          <Form>
+          <Form >
             <SearchBar />
           </Form>
         </BootstrapNavbar>
