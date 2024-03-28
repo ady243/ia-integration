@@ -59,14 +59,73 @@ export const deleteRecipe = async (req, res, next) => {
 };
 
 
+export const searchRecipes = async (req, res, next) => {
+  try {
+    const results = await recipeService.searchRecipes(req.query.searchTerm, req.query.page);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Oops, something went wrong" });
+  }
+};
 
-// export const getSuggestedRecipe = async (req, res) => {
-//   try {
-//     const searchTerm = req.query.search;
-//     const recipes = await Recipe.query().where('name', 'ilike', `%${searchTerm}%`); // Requête pour récupérer toutes les recettes correspondantes
-//     res.json({ recipes }); // Renvoyer toutes les recettes correspondantes
-//   } catch (error) {
-//     console.error('Error fetching recipes:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
+export const getRecipeSummary = async (req, res, next) => {
+  try {
+    const results = await recipeService.getRecipeSummary(req.params.recipeId);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Oops, something went wrong" });
+  }
+};
+
+export const addFavouriteRecipe = async (req, res, next) => {
+  try {
+    await recipeService.addFavouriteRecipe(req.body.recipeId);
+    res.status(201).end();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Oops, something went wrong" });
+  }
+};
+
+export const getFavouriteRecipes = async (req, res, next) => {
+  try {
+    const results = await recipeService.getFavouriteRecipes();
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Oops, something went wrong" });
+  }
+};
+
+export const removeFavouriteRecipe = async (req, res, next) => {
+  try {
+    await recipeService.removeFavouriteRecipe(req.body.recipeId);
+    res.status(204).end();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Oops, something went wrong" });
+  }
+};
+
+export const getRecipeSuggestions = async (req, res, next) => {
+  try {
+    const results = await recipeService.getRecipeSuggestions();
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Oops, something went wrong" });
+  }
+};
+
+export const getRecipeByCategory = async (req, res, next) => {
+  try {
+    const results = await recipeService.getRecipeByCategory(req.params.category);
+    res.json(results);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Oops, something went wrong" });
+  }
+};
+
