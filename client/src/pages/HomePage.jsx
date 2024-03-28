@@ -1,7 +1,7 @@
-
 import ChatBot from './ChatBotPage';
-import Sidebar from '../components/SideBar';
 import Header from '../components/Header';
+import RecipeLoader from '../components/load/RecipeLoader';
+
 
 export const HomePage = () => {
 
@@ -10,6 +10,7 @@ export const HomePage = () => {
         <div>
             <Header/>
            <ChatBot />
+              <RecipeLoader />
         </div>
     );
 }
