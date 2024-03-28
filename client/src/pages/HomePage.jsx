@@ -2,13 +2,13 @@
 import ChatBot from './ChatBotPage';
 import ButtonTestSide from "./ButtonTestSide.jsx";
 import ButtonTestGrocery from "./ButtonTestGrocery.jsx";
-import Sidebar from "../components/SideBar"
+import Header from '../components/Header';
 
 export const HomePage = () => {
 
     return (
         <div>
-               <Sidebar/>
+            <Header/>
 
             <ButtonTestSide/>
             <ButtonTestGrocery/>

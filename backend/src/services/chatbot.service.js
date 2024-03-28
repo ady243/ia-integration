@@ -8,9 +8,13 @@ const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
 export const startChat = async (message, conversationId, currentUserId) => {
   try {
     const allergies = await allergyService.findAllByUserId(currentUserId);
+
+    let allergyInstruction = '';
+    if (allergies && allergies.length > 0) {
+      allergyInstruction = ` N'incluez pas les produits suivants : ${allergies.join(", ")}, prenez en comptes ses restrictions`;
+    }
     
     // Inclure un message de système avec le contexte désiré
-    const allergyInstruction = ` N'incluez pas les produits suivants : ${allergies.join(", ")}, prenez en comptes ses restrictions`;
     const messages = [
       {
         role: "system",

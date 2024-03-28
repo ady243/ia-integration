@@ -66,7 +66,7 @@ app.get("/", async (req, res) => {
 })
 app.use("/api/users", userRoutes)
 app.use("/api/recipes", recipeRoutes)
-app.use("/api/chatbot", chatbotRoutes)
+app.use("/api/chatbots", chatbotRoutes)
 app.use("/api/allergy", allergyRoutes)
 app.use("/api/sidedish", sidedishRoutes)
 app.use("/api/grocerylist", grocerylistRoutes)
