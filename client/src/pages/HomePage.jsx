@@ -1,7 +1,7 @@
 
 import ChatBot from './ChatBotPage';
-import ButtonTestSide from "./ButtonTestSide.jsx";
-import ButtonTestGrocery from "./ButtonTestGrocery.jsx";
+import ButtonTestSide from "./Sidedish.jsx";
+import ButtonTestGrocery from "./Grocery.jsx";
 import Header from '../components/Header';
 
 export const HomePage = () => {

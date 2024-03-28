@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import Button from '../components/Button.jsx';
-import Modal from '../components/Modal.jsx';
+import ModalSide from '../components/ModalSide.jsx';
+import RecipeLoader from '../components/load/RecipeLoader.jsx';
 
 import { API_URL } from '../configUrl';
 
 const App = () => {
     const [sideDish, setSideDish] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const generateSideDish = async () => {
         try {
+            setLoading(true);
             const response = await fetch(`${API_URL}/api/sidedish`, {
                 headers:{
                     'content-type':'application/json'
@@ -21,23 +24,27 @@ const App = () => {
             setShowModal(true);
         } catch (error) {
             console.error('Error fetching side dish:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
     const handleCloseModal = () => {
         setShowModal(false);
     };
-    
+
     const containerStyle = {
-        textAlign: "right",
-      };
+        textAlign: "left",
+    };
 
     return (
         <div style={containerStyle}>
-      <Button onClick={generateSideDish} text="Générer l'accompagnement" />
-      <Modal isOpen={showModal} message={sideDish} onClose={handleCloseModal} />
-    </div>
-
+            <Button onClick={generateSideDish} text="Accompagnement" />
+            {loading && <RecipeLoader />} {}
+            {showModal && (
+                <ModalSide isOpen={showModal} message={sideDish} onClose={handleCloseModal} />
+            )}
+        </div>
     );
 };
 
