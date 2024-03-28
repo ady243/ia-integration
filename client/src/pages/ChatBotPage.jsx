@@ -129,7 +129,7 @@ const ChatBot = () => {
                                 type="text"
                                 value={userChatMessage}
                                 onChange={(e) => setUserChatMessage(e.target.value)}
-                                placeholder="Type your message here"
+                                placeholder="tapez votre message ici..."
                                 className="message-input w-full p-2 mt-4 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                             <Button
