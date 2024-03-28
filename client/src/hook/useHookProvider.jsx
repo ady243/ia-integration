@@ -79,7 +79,7 @@ export const HookProvider = ({ children }) => {
         }
 
         try {
-            const response = await fetch(`${API_URL}/api/chatbot`, {
+            const response = await fetch(`${API_URL}/api/chatbots`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'authentication': token
@@ -88,7 +88,7 @@ export const HookProvider = ({ children }) => {
                 body: JSON.stringify({ description })
             });
             const data = await response.json();
-            console.log('chatbot data : ', data?.conversationHistory);
+           console.log('chatbot data : ', data);
             setData(data?.conversationHistory);
             return data?.conversationHistory;
         } catch (error) {
