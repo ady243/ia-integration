@@ -1,6 +1,8 @@
 import { SlArrowDown, SlArrowUp, SlLogout, SlUser, SlHeart} from "react-icons/sl";
 import { HookContext } from '../hook/useHookProvider';
 import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -60,16 +62,20 @@ const Header = () => {
             </div>
 
             {isOpen && (
-                <div className="origin-top-right absolute right-12 mt-12 w-56 shadow-lg">
-                    <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex" role="menuitem">
-                        <span style={{marginRight: "10px"}}><SlHeart /></span> Mes favoris</a>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Mon profil</a>
-                        <a href="#"onClick={logout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600 flex" role="menuitem">
-                        <span style={{marginRight: "10px"}}><SlLogout /></span>
-                        se déconnecter</a>
-                    </div>
-                </div>
+               <div className="origin-top-right absolute right-12 mt-12 w-56 shadow-lg">
+               <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                   <Link to="/favorites" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex" role="menuitem">
+                       <span style={{marginRight: "10px"}}><SlHeart /></span> Mes favoris
+                   </Link>
+                   <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">
+                       Mon profil
+                   </Link>
+                   <a href="#" onClick={logout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600 flex" role="menuitem">
+                       <span style={{marginRight: "10px"}}><SlLogout /></span>
+                       se déconnecter
+                   </a>
+               </div>
+           </div>
             )}
         </div>
     );

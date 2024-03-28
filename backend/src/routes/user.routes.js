@@ -7,8 +7,8 @@ const router = express.Router()
 
 router.post("/login", userController.signInUser)
 router.post("/register", userController.createUser)
-
 router.route("/").get(auth, userController.getAllUsers)
+
 
 router.get("/me", auth, userController.getCurrentUser)
 router

@@ -57,6 +57,28 @@ export const HookProvider = ({ children }) => {
             console.error(error);
             throw error;
         }
+    };
+    
+    const updateUser = async (userId, updatedInfo) => {
+        try {
+            const response = await fetch(`${API_URL}/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': token
+                },
+                body: JSON.stringify(updatedInfo)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message);
+            }
+            console.log('update user data', data);
+            saveCurrentUser(data.user);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
     }
 
     const logout = () => {
@@ -137,7 +159,7 @@ export const HookProvider = ({ children }) => {
     }, [token, userInput]); 
 
     return (
-        <HookContext.Provider value={{ token, saveToken, currentUser, saveCurrentUser, login, logout, register, data, userInput, setUserInput, chatbot, getConversationHistory, deleteConversationHistory}}>
+        <HookContext.Provider value={{ token, saveToken, currentUser, saveCurrentUser, login, logout, register, data, userInput, setUserInput, chatbot, getConversationHistory, deleteConversationHistory, updateUser}}>
             {children}
         </HookContext.Provider>
     );

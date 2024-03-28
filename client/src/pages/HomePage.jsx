@@ -1,6 +1,4 @@
-
 import ChatBot from './ChatBotPage';
-import Sidebar from '../components/SideBar';
 import Header from '../components/Header';
 
 export const HomePage = () => {
