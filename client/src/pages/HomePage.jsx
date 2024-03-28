@@ -1,16 +1,14 @@
 
 import ChatBot from './ChatBotPage';
-import DotLoad from '../components/load/DotLoad';
 import ButtonTestSide from "./ButtonTestSide.jsx";
 import ButtonTestGrocery from "./ButtonTestGrocery.jsx";
+import Sidebar from "../components/SideBar"
 
 export const HomePage = () => {
 
-
     return (
         <div>
-            <h1>Home Page</h1>
-            <p>Current User: {currentUser ? currentUser.fullName : 'None'}</p>
+               <Sidebar/>
 
             <ButtonTestSide/>
             <ButtonTestGrocery/>

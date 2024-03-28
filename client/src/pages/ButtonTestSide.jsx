@@ -27,12 +27,16 @@ const App = () => {
     const handleCloseModal = () => {
         setShowModal(false);
     };
+    
+    const containerStyle = {
+        textAlign: "right",
+      };
 
     return (
-        <div>
-            <Button onClick={generateSideDish} text="Générer l'accompagnement" />
-            <Modal isOpen={showModal} message={sideDish} onClose={handleCloseModal} />
-        </div>
+        <div style={containerStyle}>
+      <Button onClick={generateSideDish} text="Générer l'accompagnement" />
+      <Modal isOpen={showModal} message={sideDish} onClose={handleCloseModal} />
+    </div>
 
     );
 };
