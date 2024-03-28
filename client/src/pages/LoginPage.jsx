@@ -3,7 +3,6 @@ import FormBuilder from '../components/FormBuilder';
 import { HookContext } from '../hook/useHookProvider';
 import { useNavigate } from 'react-router-dom';
 
-
 const LoginPage = () => {
 
     const [email, setEmail] = useState('');
@@ -11,29 +10,28 @@ const LoginPage = () => {
     const { login } = useContext(HookContext); 
     const navigate = useNavigate();
 
- 
-    
     const inputStyle = { 
-        width: '400px',
-        padding: '10px',
-        fontSize: '0.7rem',
-        borderRadius: '4px',
+        width: '100%',
+        padding: '15px',
+        fontSize: '1rem',
+        borderRadius: '5px',
         backgroundColor: '#f9f9f9',
         color: '#444',
         display: 'flex',
-        marginBottom: '30px', 
-        border: '1px solid gray',
-        margin: 'auto',
+        marginBottom: '20px', 
+        border: '1px solid #ddd',
     };
 
     const buttonLogin = {
-        width: '90%',
-        backgroundColor: '#4CAF50',
+        width: '100%',
+        backgroundColor: '#09bbbe',
         color: 'white',
-        padding: '10px 20px',
-        margin: '8px 0',
-        borderRadius: '4px',
+        padding: '15px 0',
+        margin: '10px 0',
+        borderRadius: '5px',
         cursor: 'pointer',
+        fontSize: '1rem',
+        border: 'none',
     };
 
     const fields = [
@@ -70,20 +68,15 @@ const LoginPage = () => {
         }
     ];
 
-
-
     return (
-        <div className='text-center mt-12'>
-            <h1>Login Page</h1>
-        <div className="bg-white rounded px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
-          <FormBuilder fields={fields} />
-
-
-            <p className="text-sm text-gray-600 mt-4">
-                Don't have an account? <a href="/register" className="text-indigo-600 hover:text-indigo-700">Register</a>
-            </p>
-        </div>
-    
+        <div className='text-center mt-28'>
+            <h1 style={{fontSize: '2rem', color: '#444'}}>Connexion</h1>
+            <div className="bg-white rounded px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
+                <FormBuilder fields={fields} />
+                <p className="text-sm text-gray-600 mt-4">
+                    Don't have an account? <a href="/register" className="text-indigo-600 hover:text-indigo-700">Register</a>
+                </p>
+            </div>
         </div>
     );
 };
