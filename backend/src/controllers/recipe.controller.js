@@ -10,6 +10,7 @@ export const getAllRecipes = async (req, res, next) => {
   }
 }
 
+
 export const getSuggestedRecipe = async (req, res) => {
   try {
     const searchTerm = req.query.search;
@@ -90,13 +91,15 @@ export const addFavouriteRecipe = async (req, res, next) => {
 };
 
 export const getFavouriteRecipes = async (req, res, next) => {
+
   try {
-    const results = await recipeService.getFavouriteRecipes();
+    const results = await recipeService.FavouriteRecipes(req.query);
     res.json(results);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Oops, something went wrong" });
   }
+
 };
 
 export const removeFavouriteRecipe = async (req, res, next) => {
@@ -128,4 +131,3 @@ export const getRecipeByCategory = async (req, res, next) => {
     res.status(500).json({ error: "Oops, something went wrong" });
   }
 };
-

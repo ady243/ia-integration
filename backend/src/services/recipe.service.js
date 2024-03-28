@@ -10,11 +10,12 @@ export const findAll = async (queryString) => {
       .sort()
       .paginate();
 
-    return await features.query;
+    return await features.query
   } catch (error) {
-    throw error;
+    throw error
   }
 };
+
 
 export const findById = async (id) => {
   try {
@@ -47,6 +48,23 @@ export const remove = async (id) => {
     throw error;
   }
 };
+
+export const FavouriteRecipes = async (queryString) => {
+  try {
+    // Effectuer la requête pour obtenir toutes les recettes
+    const allRecipes = await Recipe.query(queryString);
+    
+    // Filtrer les recettes favorites
+    const favoriteRecipes = allRecipes.filter(recipe => recipe.isFavorite === true);
+
+    // Renvoyer les recettes favorites
+    return favoriteRecipes;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 
 export const searchRecipes = async (searchTerm, page) => {
   try {
