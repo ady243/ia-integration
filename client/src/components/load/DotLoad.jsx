@@ -3,7 +3,7 @@ import './dot.css';
 
 const DotLoad = () => {
     return (
-        <section class="dots-container">
+        <section className="dots-container">
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>

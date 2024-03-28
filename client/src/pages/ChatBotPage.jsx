@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Button from '../components/Button';
-import { LuSendHorizonal } from "react-icons/lu";
-import { SiChatbot } from "react-icons/si";
+import React, { useState, useContext } from 'react';
 import { HookContext } from '../hook/useHookProvider';
-import DotLoad from '../components/load/DotLoad';
+import { SiChatbot } from "react-icons/si";
+import { LuSendHorizonal } from "react-icons/lu";
+
+import './pages.css';
 
 const ChatBot = () => {
-    const { chatbot } = useContext(HookContext);
+    const { chatbot, getConversationHistory } = useContext(HookContext);
     const [isOpen, setIsOpen] = useState(false);
-    const [data, setData] = useState([]);
     const [conversationHistory, setConversationHistory] = useState([]);
     const [userChatMessage, setUserChatMessage] = useState('');
     const [loading, setLoading] = useState(false);
@@ -17,101 +16,105 @@ const ChatBot = () => {
         setIsOpen(!isOpen);
     };
 
-
-    const fetchConversationHistory = async (userChatMessage) => {
+    const fetchConversationHistory = async () => {
         setLoading(true);
         try {
-            setUserChatMessage("");
             const response = await chatbot(userChatMessage);
             setConversationHistory(response);
             setLoading(false);
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
+    }
+
+    const getCobversationHistory = async () => {
+        try {
+            const response = await getConversationHistory();
+            setConversationHistory(response);
         } catch (error) {
             console.log(error);
         }
     }
 
     const handleSubmit = () => {
-        // Start the conversation call api
-
         if (userChatMessage) {
-            fetchConversationHistory(userChatMessage);
+            fetchConversationHistory();
         }
     }
 
-    useEffect(() => {
-        if (conversationHistory) {
-            setData(conversationHistory);
-        }
-    }, [conversationHistory]);
-
     return (
-      <div className="fixed bottom-5 right-5">
-        <Button
-          onClick={togglePopup}
-          text={<SiChatbot />}
-          className="text-black text-3xl bg-gradient-to-r from-indigo-800 via-purple-700 to-pink-800
-                 rounded-full p-2 focus:outline-none animate-bounce
-                focus:shadow-outline transform transition duration-250 ease-in-out active:scale-110"
-        />
-        {isOpen && (
-          <div className="fixed bottom-16 right-12 bg-white p-4 shadow-md rounded-md">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold">Ady</h2>
-              <button onClick={togglePopup}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
+        <>
+            <div className={`chatbot-popup ${isOpen ? 'open' : ''}`}>
+                <div className="chat-container">
+                    <div className="chat-header flex justify-between items-center">
+                        <h2 className="text-lg font-bold">Chat</h2>
+                        <button onClick={togglePopup}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 text-gray-600"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d={isOpen ? "M6 18L18 6M6 6l12 12" : "M18 18l-6-6 6-6"}
+                                />
+                            </svg>
+                        </button>
+                    </div>
 
-            <div className="flex flex-col space-y-2 w-full h-80 overflow-y-auto border border-gray-300 rounded-lg p-2">
-                    {conversationHistory && conversationHistory.map((item, index) => (
-                        <div
-                        key={index}
-                        className={`${
-                            item.role === "user"
-                            ? "ml-auto bg-blue-500 text-sm text-white" 
-                            : "mr-auto bg-gray-300 text-sm" 
-                        } p-2 rounded-md`}
+                    <div className="chat-window">
+                        {conversationHistory && conversationHistory.map((item, index) => (
+                            <div
+                                key={index}
+                                className={`${
+                                    item.role === "user"
+                                        ? "ml-auto bg-blue-500 text-sm text-white" 
+                                        : "mr-auto bg-gray-300 text-sm" 
+                                } p-2 rounded-md`}
+                            >
+                                <p>{item.content}</p>
+                            </div>
+                        ))}
+                        {loading && (
+                            <div className="flex justify-center">
+                                <div>
+                                    {/* Afficher votre composant de chargement ici */}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="chat-input">
+                        <input
+                            type="text"
+                            value={userChatMessage}
+                            onChange={(e) => setUserChatMessage(e.target.value)}
+                            placeholder="Tapez votre message ici..."
+                            className="message-input"
+                        />
+                        <button
+                            onClick={handleSubmit}
+                            className="send-button"
                         >
-                        <p>{item.content}</p>
-                        </div>
-                    ))}
-                    {loading && (
-                        <div className="flex justify-center">
-                        <div >
-                            <DotLoad />
-                        </div>
-                        </div>
-                    )}
-            </div>          
-            <div>
-              <input
-                type="text"
-                value={userChatMessage}
-                onChange={(e) => setUserChatMessage(e.target.value)}
-                placeholder="Tapez votre message ici"
-                className="w-full p-2 mt-4 mb-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <Button
-                onClick={() => handleSubmit()}
-                text={<LuSendHorizonal />}
-              />
+                            <LuSendHorizonal />
+                        </button>
+                    </div>
+                </div>
             </div>
-          </div>
-        )}
-      </div>
+            <div className="fixed bottom-5 right-5">
+                <button
+                    onClick={togglePopup}
+                    className="text-black text-5xl  rounded-full p-2 focus:outline-none focus:shadow-outline transform transition duration-250 ease-in-out active:scale-110"
+                >
+                    <span style={{fontSize: "2.5rem"}}><SiChatbot/></span>
+                </button>
+            </div>
+        </>
     );
 };
 

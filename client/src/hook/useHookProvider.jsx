@@ -60,19 +60,12 @@ export const HookProvider = ({ children }) => {
     }
 
     const logout = () => {
-        saveToken(null);
-        saveCurrentUser(null);
+        setToken(null);
+        setCurrentUser(null);
+        localStorage.removeItem('token');
     };
 
     useEffect(() => {
-        // if (token) {
-        //     fetch(`${API_URL}/api/users/me`, {
-        //         headers: { 'Authorization': `Bearer ${token}` }
-        //     })
-        //     .then(response => response.json())
-        //     .then(data => saveCurrentUser(data))
-        //     .catch(error => console.error(error));
-        // }
     }, [token]);
 
     const chatbot = async (description) => {
@@ -86,7 +79,7 @@ export const HookProvider = ({ children }) => {
         }
 
         try {
-            const response = await fetch(`${API_URL}/api/chatbot`, {
+            const response = await fetch(`${API_URL}/api/chatbots`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'authentication': token
@@ -95,9 +88,43 @@ export const HookProvider = ({ children }) => {
                 body: JSON.stringify({ description })
             });
             const data = await response.json();
-            console.log('chatbot data : ', data?.conversationHistory);
+           console.log('chatbot data : ', data);
             setData(data?.conversationHistory);
             return data?.conversationHistory;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    
+
+    const getConversationHistory = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/chatbot/conversations`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': token
+                }
+            });
+            const data = await response.json();
+            console.log('conversation history data : ', data);  
+            setData(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const deleteConversationHistory = async () => {
+        try {
+            const response = await fetch(`${API_URL}/api/chatbot/conversations`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': token
+                },
+                method: 'DELETE'
+            });
+            const data = await response.json();
+            console.log('delete conversation history data : ', data);
+            setData(data);
         } catch (error) {
             console.error(error);
         }
@@ -110,7 +137,7 @@ export const HookProvider = ({ children }) => {
     }, [token, userInput]); 
 
     return (
-        <HookContext.Provider value={{ token, saveToken, currentUser, saveCurrentUser, login, logout, register, data, userInput, setUserInput, chatbot}}>
+        <HookContext.Provider value={{ token, saveToken, currentUser, saveCurrentUser, login, logout, register, data, userInput, setUserInput, chatbot, getConversationHistory, deleteConversationHistory}}>
             {children}
         </HookContext.Provider>
     );

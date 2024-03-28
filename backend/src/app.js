@@ -64,8 +64,9 @@ app.get("/", async (req, res) => {
 })
 app.use("/api/users", userRoutes)
 app.use("/api/recipes", recipeRoutes)
-app.use("/api/chatbot", chatbotRoutes)
+app.use("/api/chatbots", chatbotRoutes)
 app.use("/api/allergy", allergyRoutes)
+
 
 // handle undefined Routes
 app.use("*", (req, res, next) => {
