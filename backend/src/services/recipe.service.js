@@ -2,54 +2,74 @@ import Recipe from "../db/models/recipe.model.js"
 
 import APIFeatures from "../utils/apiFeatures.js"
 
+
 export const findAll = async (queryString) => {
   try {
     const features = new APIFeatures(Recipe.query(), queryString)
       .limit()
       .sort()
-      .paginate()
+      .paginate();
 
-    return await features.query
+    return await features.query;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const findById = async (id) => {
   try {
-    return await Recipe.query().findById(id)
+    return await Recipe.query().findById(id);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const create = async (data) => {
   try {
-    return await Recipe.query().insert(data)
+    return await Recipe.query().insert(data);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const update = async (id, data) => {
   try {
-    return await Recipe.query().patchAndFetchById(id, data)
+    return await Recipe.query().patchAndFetchById(id, data);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 export const remove = async (id) => {
   try {
-    return await Recipe.query().deleteById(id)
+    return await Recipe.query().deleteById(id);
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-export const getSuggestedRecipe = async (searchTerm) => {
+export const searchRecipes = async (searchTerm, page) => {
   try {
-    return await Recipe.query().where('name', 'ilike', `%${searchTerm}%`);
+    // Utilisez la méthode de recherche du modèle de recette
+    return await Recipe.search(searchTerm, page);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getRecipeSummary = async (recipeId) => {
+  try {
+    // Utilisez la méthode pour récupérer le résumé du modèle de recette
+    return await Recipe.getSummary(recipeId);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getFavouriteRecipesByIDs = async (ids) => {
+  try {
+    // Utilisez la méthode pour récupérer les recettes favorites par IDs du modèle de recette
+    return await Recipe.getFavouritesByIds(ids);
   } catch (error) {
     throw error;
   }

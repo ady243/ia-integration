@@ -12,21 +12,8 @@ import Sidebar from "./Sidebar";
 import SearchBar from "./SearchBar";
 import React, { useContext, useState } from "react";
 
-
 const CustomNavbar = () => {
   const [searchText, setSearchText] = useState("");
-
-  const handleSearchInput = (event) => {
-    setSearchText(event.target.value);
-  };
-
-  const handleSearchSubmit = () => {
-    // Logique de soumission de la recherche
-  };
-
-  const handleRoute = (route) => {
-    // Logique de routage
-  };
 
   // const { currentUser } = useContext(HookContext);
   const [visible, setVisible] = useState(false);
@@ -42,14 +29,14 @@ const CustomNavbar = () => {
             {/* <Nav.Link onClick={() => handleRoute("/")} style={{  color:"white"}}>Accueil</Nav.Link>
             <Nav.Link onClick={() => handleRoute("/about")} style={{  color:"white"}}>A propos</Nav.Link> */}
           </Nav>
-          <Form >
+          <Form>
             <SearchBar />
           </Form>
         </BootstrapNavbar>
         {/* Contenu principal de votre application */}
         <div style={{ padding: "20px" }}>
           {/* Placez votre contenu principal ici */}
-          
+          <HomePage />
         </div>
       </div>
     </div>
