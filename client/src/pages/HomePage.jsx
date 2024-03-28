@@ -1,17 +1,16 @@
-
-import ChatBot from './ChatBotPage';
-import Sidebar from '../components/SideBar';
-import Header from '../components/Header';
+import ChatBot from "./ChatBotPage";
+import Sidebar from "../components/SideBar";
+import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 
 export const HomePage = () => {
-
-
-    return (
-        <div>
-            <Header/>
-           <ChatBot />
-        </div>
-    );
-}
+  return (
+    <div>
+      <Navbar />
+      <Header />
+      <ChatBot />
+    </div>
+  );
+};
 
 export default HomePage;

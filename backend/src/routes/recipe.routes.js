@@ -12,7 +12,6 @@ router.get("/", recipeController.getAllRecipes)
 router.post("/", recipeController.createRecipe);
 
 router.get("/favourite",recipeController.getFavouriteRecipes);
-
 router.get("/suggestions", recipeController.getSuggestedRecipe);
 router.get("/search",recipeController.searchRecipes);
 router.get("/:recipeId/summary",recipeController.getRecipeSummary);

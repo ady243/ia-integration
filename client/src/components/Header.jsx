@@ -60,7 +60,7 @@ const Header = () => {
             </div>
 
             {isOpen && (
-                <div className="origin-top-right absolute right-12 mt-12 w-56 shadow-lg">
+                <div className="origin-top-right absolute bg-white right-12 mt-12 w-56 shadow-lg">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex" role="menuitem">
                         <span style={{marginRight: "10px"}}><SlHeart /></span> Mes favoris</a>
