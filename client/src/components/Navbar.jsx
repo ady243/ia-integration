@@ -7,7 +7,7 @@ const Navbar = () => {
         className="absolute inset-0 bg-cover bg-center w-full h-full z-0"
         style={{
           backgroundImage: "url('./public/hero-image.jpg')",
-          height: "574px",
+          height: "523px",
           opacity: "0.7",
         }}
       >
