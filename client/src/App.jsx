@@ -4,9 +4,15 @@ import RoutesConfig from './AllRoutesConfig/RouteConfig';
 
 const App = () => {
     return (
-        <HookProvider>
+        <>
+          <HookProvider>
             <RoutesConfig />
+          
         </HookProvider>
+       
+        
+        </>
+      
     );
 };
 

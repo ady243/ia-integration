@@ -4,7 +4,7 @@ import auth from "../middlewares/auth.middleware.js"
 
 const router = express.Router()
 
-router.post("/allergy", allergyController.createAllergy)
+router.post("/", auth, allergyController.createAllergy)
 
 router.get("/allergy", allergyController.getAllergy)
 

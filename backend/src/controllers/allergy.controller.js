@@ -20,10 +20,14 @@ export const getAllAllergies = async (req, res, next) => {
 
 export const createAllergy = async (req, res, next) => {
   const { allergen } = req.body
+  const { user: {
+    id: userCurrentId
+  } } = req.session;
 
   const datas = {
     allergen,
   }
+
   try {
     const missingFields = checkRequiredFields(datas, ["allergen"])
 
@@ -31,7 +35,13 @@ export const createAllergy = async (req, res, next) => {
       throw new AppError(400, "fail", `${missingFields.join(", ")} are required`)
     }
 
-    const allergy = await allergyService.createOne(datas)
+
+    const allergy = await allergyService.createOne({
+        ...datas,
+        user_id: userCurrentId
+    })
+
+
     res.status(201).json(allergy)
   } catch (error) {
     next(error)
@@ -87,7 +97,10 @@ export const deleteAllergy = async (req, res, next) => {
 
 export const getAllergiesByUserId = async (req, res, next) => {
   try {
-    const { params: { userId } } = req;
+    const { params: {
+       userId 
+      } 
+    } = req.session;
 
     if (!userId || !Number(userId)) {
       throw new AppError(404, "fail", "Missing user id");

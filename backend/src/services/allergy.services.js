@@ -9,10 +9,12 @@ export const findOneByField = async (field, value) => {
 
 export const findAllByUserId = async (userId) => {
   try {
-    const allergies = await Allergy.query().where('user_id', userId);
+    const allergies = await Allergy.query().findOne({
+      user_id: userId
+    });
 
     if (!allergies) {
-      throw new AppError(404, "fail", "No allergies found with that id");
+      return []
     }
 
     return allergies;
@@ -35,15 +37,18 @@ export const findAll = async (queryString) => {
   }
 };
 
-export const createOne = async (allergy) => {
+export const createOne = async (data) => {
   try {
-    const isAllergyExist = await findOneByField("allergen", allergy.allergen);
+    // const isAllergyExist = await findOneByField("allergen", data?.allergen);
+    //
+    // if (isAllergyExist) {
+    //   throw new AppError(409, "fail", "Allergy already exist");
+    // }
 
-    if (isAllergyExist) {
-      throw new AppError(409, "fail", "Allergy already exist");
-    }
-
-    return Allergy.query().insert(allergy);
+    return Allergy.query().insert({
+        allergen: data.allergen,
+        user_id: data.user_id
+    });
   } catch (error) {
     throw error;
   }

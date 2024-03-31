@@ -8,6 +8,7 @@ export const HookProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState(null); 
     const [data, setData] = useState(null);
+    const [conversation, setConversation] = useState([]);
     const [userInput, setUserInput] = useState('');
     
 
@@ -92,7 +93,6 @@ export const HookProvider = ({ children }) => {
 
     const chatbot = async (description) => {
 
-        // get token from local storage
         const tokenLocalStorage = localStorage.getItem('token');
         if (tokenLocalStorage) {
             setToken(tokenLocalStorage);
@@ -110,9 +110,10 @@ export const HookProvider = ({ children }) => {
                 body: JSON.stringify({ description })
             });
             const data = await response.json();
-           console.log('chatbot data : ', data);
             setData(data?.conversationHistory);
-            return data?.conversationHistory;
+            setConversation(data?.conversation);
+            console.log('chatbot data : ', data);
+            return data?.conversation;
         } catch (error) {
             console.error(error);
         }

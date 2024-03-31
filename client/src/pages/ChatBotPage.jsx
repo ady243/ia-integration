@@ -22,6 +22,7 @@ const ChatBot = () => {
             const response = await chatbot(userChatMessage);
             setConversationHistory(response);
             setLoading(false);
+            setUserChatMessage("");
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -42,10 +43,20 @@ const ChatBot = () => {
             fetchConversationHistory();
         }
     }
+    
+  const positionStyle = {
+        position: 'fixed',
+        bottom: '10px',
+        right: '10px',
+        zIndex: '9999',      
+    }; 
+    
 
+    console.log(conversationHistory);
     return (
         <>
-            <div className={`chatbot-popup ${isOpen ? 'open' : ''}`}>
+        <div style={positionStyle}>
+        <div className={`chatbot-popup ${isOpen ? 'open' : ''}`}>
                 <div className="chat-container">
                     <div className="chat-header flex justify-between items-center">
                         <h2 className="text-lg font-bold">Chat</h2>
@@ -109,11 +120,13 @@ const ChatBot = () => {
             <div className="fixed bottom-5 right-5">
                 <button
                     onClick={togglePopup}
-                    className="text-black text-5xl  rounded-full p-2 focus:outline-none focus:shadow-outline transform transition duration-250 ease-in-out active:scale-110"
+                    className="text-[ #0ab3b3] bg-[ #0ab3b3] text-5xl  rounded-full p-2 focus:outline-none focus:shadow-outline transform transition duration-250 ease-in-out active:scale-110"
                 >
-                    <span style={{fontSize: "2.5rem"}}><SiChatbot/></span>
+                    <span className='bg-[#0ab3b3]'><SiChatbot/></span>
                 </button>
             </div>
+        </div>
+            
         </>
     );
 };

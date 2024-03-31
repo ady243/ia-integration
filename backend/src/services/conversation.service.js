@@ -37,7 +37,9 @@ export const findAll = async (queryString) => {
 
 export const findAllByUserId = async (userId) => {
   try {
-    return await Conversation.query().where("user_id", userId)
+    return await Conversation.query().findOne({
+      user_id:userId
+    })
   } catch (error) {
     throw error
   }
