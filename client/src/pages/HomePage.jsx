@@ -1,17 +1,25 @@
 
-import ChatBot from './ChatBotPage';
-import ButtonTestSide from "./Sidedish.jsx";
-import ButtonTestGrocery from "./Grocery.jsx";
-import Header from '../components/Header';
+import ChatBot from "./ChatBotPage";
+import Sidebar from "../components/SideBar";
+import Header from "../components/Header";
+import Navbar from "../components/Navbar";
+import RecipesList from "../components/RecipeList";
+import { RecipeProvider } from "../hook/RecipesProvider";
+
 
 export const HomePage = () => {
+  return (
+    <div>
+      <Navbar />
+      <Header />
+      <RecipeProvider> {/* Enveloppez votre application avec RecipeProvider */}
+            <RecipesList />
+        </RecipeProvider>
+      <ChatBot />
+    </div>
+  );
+};
 
-    return (
-        <div>
-            <Header/>
-            <ChatBot />
-        </div>
-    );
-}
 
 export default HomePage;
+
