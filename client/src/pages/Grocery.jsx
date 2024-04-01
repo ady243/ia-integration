@@ -39,7 +39,7 @@ const App = () => {
 
     return (
         <div style={containerStyle}>
-            <Button onClick={generateGroceryList} text="Liste de course" />
+            <Button onClick={generateGroceryList} text="Liste de courses" />
             {loading && <RecipeLoader />}
             {showModal && (
                 <ModalGrocery isOpen={showModal} message={groceryList} onClose={handleCloseModal} showIngredients={true} />
