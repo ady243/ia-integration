@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { HookContext } from '../hook/useHookProvider';
 import { SiChatbot } from "react-icons/si";
 import { LuSendHorizonal } from "react-icons/lu";
+import useChat from '../hook/useChat';
 
 import './pages.css';
+import DotLoad from '../components/load/DotLoad';
 
 const ChatBot = () => {
-    const { chatbot, getConversationHistory } = useContext(HookContext);
+   
+    const { chatbot } = useChat();
     const [isOpen, setIsOpen] = useState(false);
     const [conversationHistory, setConversationHistory] = useState([]);
     const [userChatMessage, setUserChatMessage] = useState('');
@@ -24,17 +26,7 @@ const ChatBot = () => {
             setLoading(false);
             setUserChatMessage("");
         } catch (error) {
-            console.log(error);
             setLoading(false);
-        }
-    }
-
-    const getCobversationHistory = async () => {
-        try {
-            const response = await getConversationHistory();
-            setConversationHistory(response);
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -43,16 +35,14 @@ const ChatBot = () => {
             fetchConversationHistory();
         }
     }
-    
-  const positionStyle = {
-        position: 'fixed',
-        bottom: '10px',
-        right: '10px',
-        zIndex: '9999',      
-    }; 
-    
-
-    console.log(conversationHistory);
+        
+    const positionStyle = {
+            position: 'fixed',
+            bottom: '10px',
+            right: '10px',
+            zIndex: '9999',      
+        }; 
+        
     return (
         <>
         <div style={positionStyle}>
@@ -83,18 +73,18 @@ const ChatBot = () => {
                             <div
                                 key={index}
                                 className={`${
-                                    item.role === "user"
-                                        ? "ml-auto bg-blue-500 text-sm text-white" 
-                                        : "mr-auto bg-gray-300 text-sm" 
-                                } p-2 rounded-md`}
-                            >
-                                <p>{item.content}</p>
-                            </div>
+                            item.role === "user"
+                                ? "ml-auto bg-[#0ab3b3] text-sm text-white shadow-md font-medium my-2 rounded-l-lg" 
+                                : "mr-auto bg-gray-300 text-sm shadow-md font-medium my-2" 
+                        } p-2 rounded-md`}
+                        >
+                            <p>{item.content}</p>
+                        </div>
                         ))}
                         {loading && (
                             <div className="flex justify-center">
                                 <div>
-                                    {/* Afficher votre composant de chargement ici */}
+                                  <DotLoad />
                                 </div>
                             </div>
                         )}

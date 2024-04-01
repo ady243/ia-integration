@@ -108,7 +108,6 @@ export const getAllergiesByUserId = async (req, res, next) => {
 
     const allergies = await allergyService.findAllByUserId(userId);
 
-    //console.log("Allergies : ", allergies.map(objet => objet.allergen).join(", ")); 
     res.status(200).json(allergies.map(objet => objet.allergen));
   } catch (error) {
     next(error);

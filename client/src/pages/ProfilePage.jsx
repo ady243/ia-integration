@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import { SlArrowLeft } from "react-icons/sl";
 import { useContext, useEffect, useState } from 'react';
 import { HookContext } from '../hook/useHookProvider';
+import useAllergy from "../hook/useAllergy";
 
 const ProfilPage = () => {
 
-    const { currentUser, logout, updateUser } = useContext(HookContext); 
+    const { currentUser } = useContext(HookContext); 
+    const { createAllergy, updateAllergy, getAllergies } = useAllergy();
     const [user, setUser] = useState(null);
   
     useEffect(() => {
@@ -22,6 +24,19 @@ const ProfilPage = () => {
       }
     }, [])
 
+
+    const handleAddAllergy = async (e) => {
+        e.preventDefault();
+        const allergen = e.target.allergy.value;
+        try {
+            await createAllergy(allergen);
+            const allergies = await getAllergies();
+            console.log(allergies);
+            setUser({ ...user, allergies });
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className=" min-h-screen">
              <div className="container mx-auto flex items-center justify-between px-4 text-black">
@@ -47,13 +62,16 @@ const ProfilPage = () => {
                         </div>
                         <div className="col-span-2">
                             <label className="block text-sm font-medium text-gray-700">Allergies</label>
-                            <ul className="list-disc ml-4">
-                                <li>Allergie aux arachides</li>
-                                <li>Allergie au lait</li>
-                                <li>Allergie aux œufs</li>
-                                <li>Allergie au soja</li>
-                                <li>Allergie au blé</li>
-                            </ul>
+                            <p>Ajouter les allergi</p>
+                            <form onSubmit={handleAddAllergy}>
+                                <input
+                                    type="text"
+                                    name="allergy"
+                                    placeholder="Ajouter une allergie"
+                                    className="border border-gray-300 p-2 w-full rounded-md"
+                                />
+                                <button type="submit" className="bg-[#0ab3b3] text-white p-2 mt-2 rounded-md">Ajouter</button>
+                            </form>
                         </div>
                     </div>
                     <div className="bg-[#0ab3b3] w-full mt-8 text-[#0ab3b3]">.</div>

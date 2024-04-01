@@ -11,10 +11,7 @@ export const HomePage = () => {
         <div>
             <Header/>
             <ChatBot/>
-       
-           {/* <div className="footer">
-            <Footer />
-        </div> */}
+    
         </div>
     );
 }
