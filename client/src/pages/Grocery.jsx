@@ -8,11 +8,11 @@ import { API_URL } from '../configUrl';
 const App = () => {
     const [groceryList, setGroceryList] = useState('');
     const [showModal, setShowModal] = useState(false);
-    const [loading, setLoading] = useState(false); // État de chargement initialisé à false
+    const [loading, setLoading] = useState(false);
 
     const generateGroceryList = async () => {
         try {
-            setLoading(true); // Activer le loader lorsque la requête démarre
+            setLoading(true); 
             const response = await fetch(`${API_URL}/api/grocerylist`, {
                 headers:{
                     'content-type':'application/json'
@@ -25,7 +25,7 @@ const App = () => {
         } catch (error) {
             console.error('Error fetching grocery list:', error);
         } finally {
-            setLoading(false); // Désactiver le loader une fois la requête terminée (quelle que soit la résultat)
+            setLoading(false); 
         }
     };
 
@@ -40,7 +40,7 @@ const App = () => {
     return (
         <div style={containerStyle}>
             <Button onClick={generateGroceryList} text="Liste de course" />
-            {loading && <RecipeLoader />} {/* Afficher le loader si loading est true */}
+            {loading && <RecipeLoader />}
             {showModal && (
                 <ModalGrocery isOpen={showModal} message={groceryList} onClose={handleCloseModal} showIngredients={true} />
             )}

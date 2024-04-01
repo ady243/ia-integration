@@ -9,9 +9,6 @@ export const HomePage = () => {
     return (
         <div>
             <Header/>
-
-            <ButtonTestSide/>
-            <ButtonTestGrocery/>
             <ChatBot />
         </div>
     );
