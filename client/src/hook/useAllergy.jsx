@@ -54,7 +54,7 @@ const useAllergy = () => {
 
     const getAllergies = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/getAllAllergies`, {
+            const response = await fetch(`${API_URL}/api/allergy/getAllAllergies`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'authentication': token

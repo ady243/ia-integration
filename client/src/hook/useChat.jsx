@@ -14,7 +14,7 @@ const useChat = () => {
         }
 
         try {
-            const response = await fetch(`${API_URL}/api/chatbots`, {
+            const response = await fetch(`${API_URL}/api/chatbot`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'authentication': token

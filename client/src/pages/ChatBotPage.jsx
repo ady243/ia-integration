@@ -98,12 +98,12 @@ const ChatBot = () => {
                             placeholder="Tapez votre message ici..."
                             className="message-input"
                         />
-                        <button
-                            onClick={handleSubmit}
-                            className="send-button"
-                        >
-                            <LuSendHorizonal />
-                        </button>
+                      <button
+                        onClick={handleSubmit}
+                        className="send-button w-24 h-8 rounded-md"
+                    >
+                       Envoyer
+                    </button>
                     </div>
                 </div>
             </div>
