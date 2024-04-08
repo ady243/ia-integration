@@ -5,7 +5,11 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/Not-FoundPage';
+import RecipeDetails from '../components/RecipeDetails';
 
+import { useParams } from 'react-router-dom';
+
+import { API_URL } from '../configUrl';
 
 const RoutesConfig = () => {
     return (
@@ -13,6 +17,7 @@ const RoutesConfig = () => {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/recipe/:id" element={<RecipeDetails />} />
                 <Route path="/" element={
                     <PrivateRouter>
                         <HomePage />
@@ -23,5 +28,7 @@ const RoutesConfig = () => {
         </BrowserRouter>
     );
 };
+
+
 
 export default RoutesConfig;

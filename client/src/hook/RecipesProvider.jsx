@@ -1,13 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
-import { API_URL } from '../configUrl';
-
+import { API_URL } from "../configUrl";
 
 export const RecipeContext = createContext();
 
- export const RecipeProvider = ({ children }) => {
+export const RecipeProvider = ({ children }) => {
   const [recipes, setRecipes] = useState([]);
   const [data, setData] = useState(null);
-
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -25,21 +23,13 @@ export const RecipeContext = createContext();
     fetchRecipes();
   }, []);
 
-  
-
-
   return (
     <RecipeContext.Provider
       value={{
-       
         recipes,
-       
       }}
     >
       {children}
     </RecipeContext.Provider>
   );
 };
-
-// Créez un hook pour utiliser le contexte de recette
-// export const RecipesContext = () => useContext(RecipeContext);

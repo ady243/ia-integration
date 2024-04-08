@@ -1,5 +1,4 @@
-
-
+import { Link } from 'react-router-dom';
 import React, { useState, useEffect, useContext } from 'react';
 import { RecipeContext } from '../hook/RecipesProvider';
 
@@ -16,7 +15,14 @@ const RecipesList = ({ searchTerm }) => {
         console.log('Filtered recipes:', filtered);
     }, [searchTerm, recipes]);
    
-   
+    const truncateDescription = (description, maxLength) => {
+        if (description.length <= maxLength) {
+            return description;
+        } else {
+            // Tronquer la description à la dernière occurrence d'un espace avant maxLength
+            return description.substring(0, maxLength).trimRight() + '...';
+        }
+    };
 
     return (
         <div className="flex flex-wrap justify-center" style={{ marginTop: "535px"}}>
@@ -27,12 +33,18 @@ const RecipesList = ({ searchTerm }) => {
                     <div className="px-6 py-4">
                         <div className="font-bold text-xl mb-2">{recipe.name}</div>
                         <p className="text-gray-700 text-base">
-                            {recipe.description}
+                        {truncateDescription(recipe.description, 300)}
                         </p>
                     </div>
                     <div className="px-6 pt-4 pb-2">
-                        {/* Afficher d'autres informations de la recette si nécessaire */}
                     </div>
+                    <Link to={`/recipe/${recipe.id}`}>
+                    <div className="flex justify-center mt-4"> 
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
+                        Voir plus
+                    </button>
+                </div>
+                </Link>
                 </div>
             ))}
         </div>

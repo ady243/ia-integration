@@ -90,16 +90,6 @@ export const searchRecipes = async (req, res) => {
 };
 
 
-// export const searchRecipes = async (req, res, next) => {
-//   try {
-//     const results = await recipeService.searchRecipes(req.query.searchTerm, req.query.page);
-//     res.json(results);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Oops, something went wrong" });
-//   }
-// };
-
 export const getRecipeSummary = async (req, res, next) => {
   try {
     const results = await recipeService.getRecipeSummary(req.params.recipeId);

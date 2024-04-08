@@ -33,8 +33,6 @@ export const create = async (data) => {
 };
 
 
-
-
 export const update = async (id, data) => {
   try {
     return await Recipe.query().patchAndFetchById(id, data);
