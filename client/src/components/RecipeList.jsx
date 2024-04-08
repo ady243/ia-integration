@@ -1,18 +1,27 @@
+
+
 import React, { useState, useEffect, useContext } from 'react';
 import { RecipeContext } from '../hook/RecipesProvider';
 
-const RecipesList = () => {
+const RecipesList = ({ searchTerm }) => {
+    const { recipes } = useContext(RecipeContext);
+    const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-    const {recipes} = useContext( RecipeContext);
+    useEffect(() => {
+        const filtered = recipes.filter(recipe =>
+            recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            recipe.description.toLowerCase().includes(searchTerm.toLowerCase())
+          );  
+        setFilteredRecipes(filtered);
+        console.log('Filtered recipes:', filtered);
+    }, [searchTerm, recipes]);
+   
+   
 
-    console.log('Recettes:', recipes);
     return (
-        
- 
-
         <div className="flex flex-wrap justify-center" style={{ marginTop: "535px"}}>
-             {Array.isArray(recipes) && recipes.map(recipe => (
-            
+          
+            {Array.isArray(filteredRecipes) && filteredRecipes.map(recipe => (
                 <div key={recipe.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4">
                     {/* <img className="w-full" src={recipe.image_url} alt={recipe.name} /> */}
                     <div className="px-6 py-4">

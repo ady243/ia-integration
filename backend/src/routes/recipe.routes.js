@@ -10,10 +10,10 @@ router.put("/:id", recipeController.updateRecipe);
 router.delete("/:id", recipeController.deleteRecipe);
 router.get("/", recipeController.getAllRecipes)
 router.post("/", recipeController.createRecipe);
+router.get('/search', recipeController.searchRecipes);
 
 router.get("/favourite",recipeController.getFavouriteRecipes);
 router.get("/suggestions", recipeController.getSuggestedRecipe);
-router.get("/search",recipeController.searchRecipes);
 router.get("/:recipeId/summary",recipeController.getRecipeSummary);
 router.post("/favourite",recipeController.addFavouriteRecipe);
 

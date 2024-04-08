@@ -13,6 +13,8 @@ class Recipe extends Model {
         name: { type: "string", minLength: 1, maxLength: 255 },
         description: { type: "string", minLength: 1, maxLength: 255 },
         isFavorite: { type: "boolean" },
+        imageUrl: { type: "string" , minLength: 1, maxLength: 255}
+
       },
     }
   }
