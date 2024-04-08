@@ -12,7 +12,7 @@ export const startChat = async (message, conversationId, currentUserId) => {
 
     let allergyInstruction = '';
     if (allergies && allergies.length > 0) {
-      allergyInstruction = `Je veux que tu sache que je suis allergiuque aux produits suivants : ${allergies}, prenez en comptes ses restrictions quand vous me suggerer des recettes.`;
+      allergyInstruction = `Je veux que tu sache que je suis allergique aux produits suivants : ${allergies}, prenez en comptes ses restrictions quand vous me suggerer des recettes.`;
     }
 
     console.log("allergyInstruction", allergyInstruction);
