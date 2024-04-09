@@ -15,12 +15,11 @@ const RecipesList = ({ searchTerm }) => {
         console.log('Filtered recipes:', filtered);
     }, [searchTerm, recipes]);
    
-    const truncateDescription = (description, maxLength) => {
-        if (description.length <= maxLength) {
-            return description;
+    const truncateDescription = (instructions, maxLength) => {
+        if (instructions.length <= maxLength) {
+            return instructions;
         } else {
-            // Tronquer la description à la dernière occurrence d'un espace avant maxLength
-            return description.substring(0, maxLength).trimRight() + '...';
+            return instructions.substring(0, maxLength).trimRight() + '...';
         }
     };
 
@@ -29,11 +28,11 @@ const RecipesList = ({ searchTerm }) => {
           
             {Array.isArray(filteredRecipes) && filteredRecipes.map(recipe => (
                 <div key={recipe.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4">
-                    {/* <img className="w-full" src={recipe.image_url} alt={recipe.name} /> */}
+                     <img className="w-full" src={recipe.imageUrl} alt={recipe.name} /> 
                     <div className="px-6 py-4">
                         <div className="font-bold text-xl mb-2">{recipe.name}</div>
                         <p className="text-gray-700 text-base">
-                        {truncateDescription(recipe.description, 300)}
+                        {truncateDescription(recipe.instructions, 300)}
                         </p>
                     </div>
                     <div className="px-6 pt-4 pb-2">
