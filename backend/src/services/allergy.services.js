@@ -9,15 +9,19 @@ export const findOneByField = async (field, value) => {
 
 export const findAllByUserId = async (userId) => {
   try {
-    const allergies = await Allergy.query().findOne({
-      user_id: userId
-    });
-
+   
+    const allergies = await Allergy.query().select('allergen').where("user_id", userId);
+    
     if (!allergies) {
       return []
     }
 
-    return allergies;
+    let allergiesArray = []
+    for (let i = 0; i < allergies.length; i++) {
+      allergiesArray.push(allergies[i].allergen)
+    }
+    
+    return allergiesArray;
   } catch (error) {
     throw error;
   }

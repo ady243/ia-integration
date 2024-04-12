@@ -7,15 +7,12 @@ const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
 
 export const startChat = async (message, conversationId, currentUserId) => {
   try {
-    const dataResponse = await allergyService.findAllByUserId(currentUserId);
-    const allergies = dataResponse?.allergen || [];
-
+    const allergies = await allergyService.findAllByUserId(currentUserId);
+    
     let allergyInstruction = '';
-    if (allergies && allergies.length > 0) {
-      allergyInstruction = `Je veux que tu sache que je suis allergique aux produits suivants : ${allergies}, prenez en comptes ses restrictions quand vous me suggerer des recettes.`;
+    if (allergies.length > 0) {
+      allergyInstruction = `Je veux que tu sache que je suis allergique aux produits suivants : ${allergies.join(', ')}, prenez en comptes ses restrictions quand vous me suggerer des recettes.`;
     }
-
-    console.log("allergyInstruction", allergyInstruction);
 
     // Inclure un message de système avec le contexte désiré
     const messages = [
