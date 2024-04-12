@@ -8,7 +8,9 @@ export const HookProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState(null); 
     
-    
+    const getToken = () => {
+        return token || localStorage.getItem('token');
+    }
 
     const saveToken = (newToken) => {
         setToken(newToken);
@@ -90,7 +92,7 @@ export const HookProvider = ({ children }) => {
     }, [token]);
 
     return (
-        <HookContext.Provider value={{ token, saveToken, saveCurrentUser, login, logout, register, updateUser}}>
+        <HookContext.Provider value={{ token, getToken, saveToken, saveCurrentUser, login, logout, register, updateUser}}>
             {children}
         </HookContext.Provider>
     );

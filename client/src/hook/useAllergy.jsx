@@ -3,7 +3,9 @@ import { API_URL } from '../configUrl';
 import { HookContext } from './useHookProvider';
 
 const useAllergy = () => {
-    const { token } = useContext(HookContext);
+    const { getToken } = useContext(HookContext);
+
+    const token = getToken();
 
     const createAllergy = async (allergen) => {
         if(!token) {
@@ -70,7 +72,7 @@ const useAllergy = () => {
     
 
 
-    return { createAllergy, updateAllergy, getAllergies};
+    return { createAllergy, updateAllergy, getAllergies };
 };
 
 export default useAllergy;

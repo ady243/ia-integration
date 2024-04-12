@@ -13,16 +13,16 @@ const ProfilPage = () => {
     const [user, setUser] = useState(null);
   
 
+    const fetchAllergies = async () => {
+      try {
+        const allergiesData = await getAllergies();
+        setAllergies(allergiesData.results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     useEffect(() => {
-        const fetchAllergies = async () => {
-            try {
-                const allergiesData = await getAllergies();
-                setAllergies(allergiesData.results);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-    
         fetchAllergies();
     }, []);
 
@@ -49,10 +49,14 @@ const ProfilPage = () => {
             const allergies = await getAllergies();
             console.log(allergies);
             setUser({ ...user, allergies });
+            fetchAllergies();
         } catch (error) {
             console.error(error);
         }
+
     }
+
+    
     return (
         <div className=" min-h-screen">
              <div className="container mx-auto flex items-center justify-between px-4 text-black">
