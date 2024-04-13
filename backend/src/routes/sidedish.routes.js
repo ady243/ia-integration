@@ -4,6 +4,6 @@ import * as sideDishController from "../controllers/sidedish.controller.js"
 const router = express.Router()
 
 
-router.post("/", sideDishController.generateSidedish)
+router.post("/:recipeId", sideDishController.generateSidedish)
 
 export default router;
