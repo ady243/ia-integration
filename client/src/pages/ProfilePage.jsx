@@ -47,7 +47,6 @@ const ProfilPage = () => {
         try {
             await createAllergy(allergen);
             const allergies = await getAllergies();
-            console.log(allergies);
             setUser({ ...user, allergies });
             fetchAllergies();
         } catch (error) {

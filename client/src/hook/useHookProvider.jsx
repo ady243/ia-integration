@@ -47,12 +47,9 @@ export const HookProvider = ({ children }) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                console.log(data);
                 throw new Error(data.message);
             }
-            console.log('register data', data);
             saveToken(data.token);
-            console.log('register token', data.token);
             saveCurrentUser(data.user);
         } catch (error) {
             console.error(error);
@@ -74,7 +71,6 @@ export const HookProvider = ({ children }) => {
             if (!response.ok) {
                 throw new Error(data.message);
             }
-            console.log('update user data', data);
             saveCurrentUser(data.user);
         } catch (error) {
             console.error(error);
