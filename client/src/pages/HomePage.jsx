@@ -4,18 +4,23 @@ import Sidebar from "../components/SideBar";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
 import RecipesList from "../components/RecipeList";
-import { RecipeProvider } from "../hook/RecipesProvider";
+import RecipeForm from "../components/RecipeForm";
+import { useState } from "react";
+import RecipeDetails from "../components/RecipeDetails";
 
 
 export const HomePage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+
   return (
     <div>
-      <Navbar />
+      <Navbar onSearch={handleSearch} />
       <Header />
-      <RecipeProvider> {/* Enveloppez votre application avec RecipeProvider */}
-            <RecipesList />
-        </RecipeProvider>
-      <ChatBot />
+      <RecipesList searchTerm={searchTerm} />
     </div>
   );
 };
