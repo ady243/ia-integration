@@ -39,7 +39,7 @@ const RecipesList = ({ searchTerm }) => {
                     </div>
                     <Link to={`/recipe/${recipe.id}`}>
                     <div className="flex justify-center mt-4"> 
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
+                    <button className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
                         Voir plus
                     </button>
                 </div>
