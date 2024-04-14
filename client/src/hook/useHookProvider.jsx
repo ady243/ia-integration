@@ -31,10 +31,14 @@ export const HookProvider = ({ children }) => {
                 body: JSON.stringify({ email, password })
             });
             const data = await response.json();
+            if (!response.ok) {
+                throw data;
+            }
             saveToken(data.token);
             saveCurrentUser(data.user);
         } catch (error) {
             console.error(error);
+            throw error;
         }
     };
 
@@ -47,7 +51,7 @@ export const HookProvider = ({ children }) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.message);
+                throw data; 
             }
             saveToken(data.token);
             saveCurrentUser(data.user);
@@ -69,7 +73,7 @@ export const HookProvider = ({ children }) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                throw new Error(data.message);
+                throw data; 
             }
             saveCurrentUser(data.user);
         } catch (error) {

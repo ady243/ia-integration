@@ -8,7 +8,6 @@ const PrivateRouter = ({ children }) => {
 
     useEffect(() => {
         const tokenLocalStorage = localStorage.getItem('token');
-        console.log('tokenLocalStorage', tokenLocalStorage);
         if (tokenLocalStorage) {
             saveToken(tokenLocalStorage);
         } else {
