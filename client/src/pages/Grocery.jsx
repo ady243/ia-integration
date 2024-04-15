@@ -12,6 +12,16 @@ const App = () => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
 
+
+    const containerStyle = {
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "left",
+    };
+
+
     useEffect(() => {
         setSelectedRecipeId(id); // Définir selectedRecipeId avec l'ID récupéré de l'URL
     }, [id]);
@@ -39,9 +49,7 @@ const App = () => {
         setShowModal(false);
     };
 
-    const containerStyle = {
-        textAlign: "left",
-    };
+  
 
     return (
         <div style={containerStyle}>

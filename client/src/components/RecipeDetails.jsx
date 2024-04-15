@@ -58,7 +58,7 @@ const RecipeDetails = () => {
                     <ul>
                       {similarRecipes.map((simRecipe) => (
                         <li key={simRecipe.recipe.id}>
-                          <Link to={`/recipe/${simRecipe.recipe.id}`} className="text-blue-500">
+                          <Link to={`/recipe/${simRecipe.recipe.id}`} className="text-[#0db2b3]">
                             {simRecipe.recipe.name}
                           </Link>
                         </li>
