@@ -44,18 +44,32 @@ const RecipesList = ({ searchTerm }) => {
     }, [])
 
     const handleFavoriteClick = async (recipeId) => {
+     
         if (user) {
             const userId = user.id; 
-            const data = await isToggleFavorite(userId, recipeId);
-
-            if (data && data.recipeId) {
-                if (favoriteRecipes.includes(data.recipeId)) {
-                    setFavoriteRecipes(prev => prev.filter(id => id !== data.recipeId));
-                    setFavoriteStatus(prev => ({ ...prev, [recipeId]: false }));
-                } else {
-                    setFavoriteRecipes(prev => [...prev, data.recipeId]);
-                    setFavoriteStatus(prev => ({ ...prev, [recipeId]: true }));
+            try {
+                const data = await isToggleFavorite(userId, recipeId);
+      
+        
+                if (data && data.isFavorite !== undefined) {
+                    let newFavoriteStatus;
+                    if (favoriteRecipes.includes(recipeId)) {
+                        setFavoriteRecipes(prev => prev.filter(id => id !== recipeId));
+                    
+                        newFavoriteStatus = { ...favoriteStatus, [recipeId]: false };
+                        setFavoriteStatus(newFavoriteStatus);
+               
+                    } else {
+                        setFavoriteRecipes(prev => [...prev, recipeId]);
+                       
+                        newFavoriteStatus = { ...favoriteStatus, [recipeId]: true };
+                        setFavoriteStatus(newFavoriteStatus);
+         
+                    }
+                    localStorage.setItem('favoriteStatus', JSON.stringify(newFavoriteStatus));
                 }
+            } catch (error) {
+                console.error('Error in isToggleFavorite', error);
             }
         }
     };
@@ -85,8 +99,8 @@ const RecipesList = ({ searchTerm }) => {
                 </div>
                 <div className="px-6 pt-4 pb-2">
                 <div className='flex w-48 '>
-                    <SlHeart onClick={() => handleFavoriteClick(recipe.id)} style={{ color: favoriteStatus[recipe.id] ? 'red' : 'black' }} />
-                    {favoriteStatus[recipe.id] && <span className='text-red-500'>1</span>}
+                <SlHeart onClick={() => handleFavoriteClick(recipe.id)} style={{ color: favoriteStatus[recipe.id] ? 'red' : 'black' }} />
+                        {favoriteStatus[recipe.id] && <span className='text-red-500'>1</span>}  
                 </div>
               
                 </div>
