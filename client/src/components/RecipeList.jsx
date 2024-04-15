@@ -1,11 +1,24 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect, useContext } from 'react';
 import { RecipeContext } from '../hook/RecipesProvider';
+import useFavorite from '../hook/useFavorite';
+import { SlHeart } from "react-icons/sl";
 import Button from './Button';
+import { HookContext } from '../hook/useHookProvider';
+
+
 
 const RecipesList = ({ searchTerm }) => {
     const { recipes } = useContext(RecipeContext);
     const [filteredRecipes, setFilteredRecipes] = useState([]);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const { currentUser } = useContext(HookContext); 
+    const { isToggleFavorite } = useFavorite();
+    const [user, setUser] = useState(null);
+    const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+    const [favoriteStatus, setFavoriteStatus] = useState({});
+
+   
 
     useEffect(() => {
         const filtered = recipes.filter(recipe =>
@@ -13,9 +26,42 @@ const RecipesList = ({ searchTerm }) => {
             recipe.description.toLowerCase().includes(searchTerm.toLowerCase())
           );  
         setFilteredRecipes(filtered);
-        console.log('Filtered recipes:', filtered);
     }, [searchTerm, recipes]);
    
+    useEffect(() => {
+        if (currentUser) {
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            setUser(currentUser);
+        }
+    }, [currentUser]);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('currentUser');
+        console.log('Stored user:', storedUser);
+        const userId = JSON.parse(storedUser).id;
+        console.log('User id:', userId);
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, [])
+
+    const handleFavoriteClick = async (recipeId) => {
+        if (user) {
+            const userId = user.id; 
+            const data = await isToggleFavorite(userId, recipeId);
+
+            if (data && data.recipeId) {
+                if (favoriteRecipes.includes(data.recipeId)) {
+                    setFavoriteRecipes(prev => prev.filter(id => id !== data.recipeId));
+                    setFavoriteStatus(prev => ({ ...prev, [recipeId]: false }));
+                } else {
+                    setFavoriteRecipes(prev => [...prev, data.recipeId]);
+                    setFavoriteStatus(prev => ({ ...prev, [recipeId]: true }));
+                }
+            }
+        }
+    };
+    
     const truncateDescription = (instructions, maxLength) => {
         if (instructions.length <= maxLength) {
             return instructions;
@@ -23,6 +69,10 @@ const RecipesList = ({ searchTerm }) => {
             return instructions.substring(0, maxLength).trimRight() + '...';
         }
     };
+
+    const toggleStyme = {
+        cursor: "pointer",
+    }
 
     return (
         <div className="flex flex-wrap justify-center" style={{ marginTop: "535px"}}>
@@ -36,6 +86,11 @@ const RecipesList = ({ searchTerm }) => {
                     </p>
                 </div>
                 <div className="px-6 pt-4 pb-2">
+                <div className='flex w-48 '>
+                    <SlHeart onClick={() => handleFavoriteClick(recipe.id)} style={{ color: favoriteStatus[recipe.id] ? 'red' : 'black' }} />
+                    {favoriteStatus[recipe.id] && <span className='text-red-500'>1</span>}
+                </div>
+              
                 </div>
                 <div className="mt-auto mb-4">
                     <Link to={`/recipe/${recipe.id}`}>

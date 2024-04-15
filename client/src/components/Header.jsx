@@ -65,7 +65,7 @@ const Header = () => {
             {isOpen && (
                <div className="origin-top-right absolute right-12 mt-12 w-56 shadow-lg">
                <div className="py-1 bg-white" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                   <Link to="/favorites" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex" role="menuitem">
+                   <Link to="/favorite" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex" role="menuitem">
                        <span style={{marginRight: "10px"}}><SlHeart /></span> Mes favoris
                    </Link>
                    <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex" role="menuitem">

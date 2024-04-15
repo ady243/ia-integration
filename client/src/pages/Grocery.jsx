@@ -14,16 +14,15 @@ const App = () => {
 
 
     const containerStyle = {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+
+        marginLeft: "auto",
+        marginRight: "auto",
         justifyContent: "center",
-        textAlign: "left",
     };
 
 
     useEffect(() => {
-        setSelectedRecipeId(id); // Définir selectedRecipeId avec l'ID récupéré de l'URL
+        setSelectedRecipeId(id); 
     }, [id]);
 
     const generateGroceryList = async () => {

@@ -33,12 +33,12 @@ const ProfilPage = () => {
         }
     }, [currentUser]);
   
-    useEffect(() => {
-      const storedUser = localStorage.getItem('currentUser');
-      if (storedUser) {
-          setUser(JSON.parse(storedUser));
-      }
-    }, [])
+        useEffect(() => {
+        const storedUser = localStorage.getItem('currentUser');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+        }, [])
 
 
     const handleAddAllergy = async (e) => {
