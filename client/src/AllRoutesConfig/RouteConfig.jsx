@@ -6,10 +6,13 @@ import RegisterPage from '../pages/RegisterPage';
 import HomePage from '../pages/HomePage';
 import NotFoundPage from '../pages/Not-FoundPage';
 import RecipeDetails from '../components/RecipeDetails';
+import Grocery from '../pages/Grocery';
+import Sidedish from '../pages/Sidedish';
 
 import { useParams } from 'react-router-dom';
 
 import { API_URL } from '../configUrl';
+import App from '../pages/Grocery';
 
 const RoutesConfig = () => {
     return (
@@ -18,6 +21,7 @@ const RoutesConfig = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/recipe/:id" element={<RecipeDetails />} />
+                <Route path="/recipe/:id" element={<App />} />
                 <Route path="/" element={
                     <PrivateRouter>
                         <HomePage />

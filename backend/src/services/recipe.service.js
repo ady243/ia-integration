@@ -63,7 +63,14 @@ export const FavouriteRecipes = async (queryString) => {
   }
 }
 
-
+export const getRecipeById = async (recipeId) => {
+  try {
+      const recipe = await Recipe.query().findById(recipeId);
+      return recipe;
+  } catch (error) {
+      throw error;
+  }
+};
 
 export const searchRecipes = async (searchTerm) => {
   try {

@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import { RecipeContext } from "../hook/RecipesProvider";
 import { computeSimilarity, tokenizeRecipeText } from "../utils/textSimilarity";
+import Grocery from "../pages/Grocery"
+import Sidedish from "../pages/Sidedish"
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -45,6 +47,11 @@ const RecipeDetails = () => {
                 <h2 className="mb-8 text-3xl font-bold">{recipe.name}</h2>
                 <p className="mb-8 pb-2 dark:text-neutral-300 lg:pb-0">Description: {recipe.description}</p>
                 {/* Display similar recipes */}
+                <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+                  <Grocery style={{ marginRight: "10px" }} />
+                  <div style={{ width: "10px" }} /> {/* Espace de 10 pixels */}
+                  <Sidedish />
+                </div>
                 {similarRecipes.length > 0 && (
                   <div className="mb-8">
                     <h3 className="text-xl font-semibold mb-4">Recettes similaires:</h3>
@@ -59,8 +66,6 @@ const RecipeDetails = () => {
                     </ul>
                   </div>
                 )}
-                {/* Additional recipe details (ingredients, duration, etc.) */}
-                {/* ... */}
               </div>
             </div>
             {/* Recipe image */}
