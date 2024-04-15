@@ -51,7 +51,7 @@ export default function Favorite() {
                         <SlArrowLeft className="mr-2" /> Retour
             </Link>
             </div>
-          
+          <h1 className="text-center mt-24 underline decoration-sky-500">Mes Favoris</h1>
             <div className="flex flex-wrap justify-center">
               <span class="relative flex h-3 w-3 mt-24">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
@@ -59,6 +59,9 @@ export default function Favorite() {
                 En construction ...
                 </span>
                 <div className="mt-24">
+                <div className=" absolute -left-52">
+                <img src="https://zupimages.net/up/24/16/wkxa.png" alt="En construction" style={{ transform: "scaleX(-1)", width: "55%", height: "auto" }} />
+                </div>
                 {favorites.map(favorite => (
                     
                     <div key={favorite.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4 flex flex-col" style={{ maxWidth: "350px", maxHeight: "600px" }}>
