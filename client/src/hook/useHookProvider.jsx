@@ -7,9 +7,10 @@ export const HookContext = createContext();
 export const HookProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [currentUser, setCurrentUser] = useState(null); 
-    const [data, setData] = useState(null);
-    const [userInput, setUserInput] = useState('');
     
+    const getToken = () => {
+        return token || localStorage.getItem('token');
+    }
 
     const saveToken = (newToken) => {
         setToken(newToken);
@@ -30,10 +31,14 @@ export const HookProvider = ({ children }) => {
                 body: JSON.stringify({ email, password })
             });
             const data = await response.json();
+            if (!response.ok) {
+                throw data;
+            }
             saveToken(data.token);
             saveCurrentUser(data.user);
         } catch (error) {
             console.error(error);
+            throw error;
         }
     };
 
@@ -46,12 +51,30 @@ export const HookProvider = ({ children }) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                console.log(data);
-                throw new Error(data.message);
+                throw data; 
             }
-            console.log('register data', data);
             saveToken(data.token);
-            console.log('register token', data.token);
+            saveCurrentUser(data.user);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
+    
+    const updateUser = async (userId, updatedInfo) => {
+        try {
+            const response = await fetch(`${API_URL}/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authentication': token
+                },
+                body: JSON.stringify(updatedInfo)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                throw data; 
+            }
             saveCurrentUser(data.user);
         } catch (error) {
             console.error(error);
@@ -68,76 +91,8 @@ export const HookProvider = ({ children }) => {
     useEffect(() => {
     }, [token]);
 
-    const chatbot = async (description) => {
-
-        // get token from local storage
-        const tokenLocalStorage = localStorage.getItem('token');
-        if (tokenLocalStorage) {
-            setToken(tokenLocalStorage);
-        } else {
-            throw new Error('No token found');
-        }
-
-        try {
-            const response = await fetch(`${API_URL}/api/chatbots`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authentication': token
-                },
-                method: 'POST',
-                body: JSON.stringify({ description })
-            });
-            const data = await response.json();
-           console.log('chatbot data : ', data);
-            setData(data?.conversationHistory);
-            return data?.conversationHistory;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    
-
-    const getConversationHistory = async () => {
-        try {
-            const response = await fetch(`${API_URL}/api/chatbot/conversations`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authentication': token
-                }
-            });
-            const data = await response.json();
-            console.log('conversation history data : ', data);  
-            setData(data);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    const deleteConversationHistory = async () => {
-        try {
-            const response = await fetch(`${API_URL}/api/chatbot/conversations`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authentication': token
-                },
-                method: 'DELETE'
-            });
-            const data = await response.json();
-            console.log('delete conversation history data : ', data);
-            setData(data);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    useEffect(() => {
-        if (userInput) {
-            chatbot(userInput);
-        }   
-    }, [token, userInput]); 
-
     return (
-        <HookContext.Provider value={{ token, saveToken, currentUser, saveCurrentUser, login, logout, register, data, userInput, setUserInput, chatbot, getConversationHistory, deleteConversationHistory}}>
+        <HookContext.Provider value={{ token, getToken, saveToken, saveCurrentUser, login, logout, register, updateUser}}>
             {children}
         </HookContext.Provider>
     );

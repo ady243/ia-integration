@@ -4,12 +4,12 @@ import auth from "../middlewares/auth.middleware.js"
 
 const router = express.Router()
 
-router.post("/allergy", allergyController.createAllergy)
+router.post("/", auth, allergyController.createAllergy)
 
-router.get("/allergy", allergyController.getAllergy)
+router.get("/allergy",auth, allergyController.getAllergy)
 
 router.get("/getAllAllergies", auth, allergyController.getAllAllergies)
 
-router.get("/getAllAllergiesByUser/:userId", auth, allergyController.getAllergiesByUserId)
+router.get("/:userId", auth, allergyController.getAllergiesByUserId)
 
 export default router

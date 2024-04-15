@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { HookContext } from '../hook/useHookProvider';
 import { SiChatbot } from "react-icons/si";
 import { LuSendHorizonal } from "react-icons/lu";
+import useChat from '../hook/useChat';
 
 import './pages.css';
+import DotLoad from '../components/load/DotLoad';
 
 const ChatBot = () => {
-    const { chatbot, getConversationHistory } = useContext(HookContext);
+   
+    const { chatbot } = useChat();
     const [isOpen, setIsOpen] = useState(false);
     const [conversationHistory, setConversationHistory] = useState([]);
     const [userChatMessage, setUserChatMessage] = useState('');
@@ -22,18 +24,9 @@ const ChatBot = () => {
             const response = await chatbot(userChatMessage);
             setConversationHistory(response);
             setLoading(false);
+            setUserChatMessage("");
         } catch (error) {
-            console.log(error);
             setLoading(false);
-        }
-    }
-
-    const getCobversationHistory = async () => {
-        try {
-            const response = await getConversationHistory();
-            setConversationHistory(response);
-        } catch (error) {
-            console.log(error);
         }
     }
 
@@ -42,10 +35,18 @@ const ChatBot = () => {
             fetchConversationHistory();
         }
     }
-
+        
+    const positionStyle = {
+            position: 'fixed',
+            bottom: '10px',
+            right: '10px',
+            zIndex: '9999',      
+        }; 
+        
     return (
         <>
-            <div className={`chatbot-popup ${isOpen ? 'open' : ''}`}>
+        <div style={positionStyle}>
+        <div className={`chatbot-popup ${isOpen ? 'open' : ''}`}>
                 <div className="chat-container">
                     <div className="chat-header flex justify-between items-center">
                         <h2 className="text-lg font-bold">Chat</h2>
@@ -72,18 +73,18 @@ const ChatBot = () => {
                             <div
                                 key={index}
                                 className={`${
-                                    item.role === "user"
-                                        ? "ml-auto bg-blue-500 text-sm text-white" 
-                                        : "mr-auto bg-gray-300 text-sm" 
-                                } p-2 rounded-md`}
-                            >
-                                <p>{item.content}</p>
-                            </div>
+                            item.role === "user"
+                                ? "ml-auto bg-[#0ab3b3] text-sm text-white shadow-md font-medium my-2 rounded-l-lg" 
+                                : "mr-auto bg-gray-300 text-sm shadow-md font-medium my-2" 
+                        } p-2 rounded-md`}
+                        >
+                            <p>{item.content}</p>
+                        </div>
                         ))}
                         {loading && (
                             <div className="flex justify-center">
                                 <div>
-                                    {/* Afficher votre composant de chargement ici */}
+                                  <DotLoad />
                                 </div>
                             </div>
                         )}
@@ -97,23 +98,25 @@ const ChatBot = () => {
                             placeholder="Tapez votre message ici..."
                             className="message-input"
                         />
-                        <button
-                            onClick={handleSubmit}
-                            className="send-button"
-                        >
-                            <LuSendHorizonal />
-                        </button>
+                      <button
+                        onClick={handleSubmit}
+                        className="send-button w-24 h-8 rounded-md"
+                    >
+                       Envoyer
+                    </button>
                     </div>
                 </div>
             </div>
             <div className="fixed bottom-5 right-5">
                 <button
                     onClick={togglePopup}
-                    className="text-black text-5xl  rounded-full p-2 focus:outline-none focus:shadow-outline transform transition duration-250 ease-in-out active:scale-110"
+                    className="text-[ #0ab3b3] bg-[ #0ab3b3] text-5xl  rounded-full p-2 focus:outline-none focus:shadow-outline transform transition duration-250 ease-in-out active:scale-110"
                 >
-                    <span style={{fontSize: "2.5rem"}}><SiChatbot/></span>
+                    <span className='bg-[#0ab3b3]'><SiChatbot/></span>
                 </button>
             </div>
+        </div>
+            
         </>
     );
 };

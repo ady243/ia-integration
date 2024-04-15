@@ -8,12 +8,12 @@ const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
 export const startChat = async (message, conversationId, currentUserId) => {
   try {
     const allergies = await allergyService.findAllByUserId(currentUserId);
-
-    let allergyInstruction = '';
-    if (allergies && allergies.length > 0) {
-      allergyInstruction = ` N'incluez pas les produits suivants : ${allergies.join(", ")}, prenez en comptes ses restrictions`;
-    }
     
+    let allergyInstruction = '';
+    if (allergies.length > 0) {
+      allergyInstruction = `Je veux que tu sache que je suis allergique aux produits suivants : ${allergies.join(', ')}, prenez en comptes ses restrictions quand vous me suggerer des recettes.`;
+    }
+
     // Inclure un message de système avec le contexte désiré
     const messages = [
       {
@@ -54,7 +54,16 @@ export const startChat = async (message, conversationId, currentUserId) => {
     })
 
     //On retourne le message de l'utilisateur et celui de l'assistant
-    return { userMessageCreated, chatbotMessageCreated, conversation: messages }
+    return { userMessageCreated, chatbotMessageCreated, conversation:[
+      {
+         role: "user",
+       content: message
+       },
+       {
+        role:"system",
+        content:chatbotMessageCreated.content
+       }
+    ] }
   } catch (error) {
     throw error
   }

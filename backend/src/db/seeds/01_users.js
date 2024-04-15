@@ -1,6 +1,6 @@
 import faker from "faker"
 import { hashPassword } from "../../security/password/index.js"
-import { getRandomRole } from "../../utils/tools.js"
+
 
 const makeUserPasswordHashAndSalt = (user) => {
   const [passwordHash, passwordSalt] = hashPassword(user.password)
@@ -12,7 +12,7 @@ const makeUserPasswordHashAndSalt = (user) => {
     passwordHash,
     passwordSalt,
   }
-}
+} 
 
 const createInitialUsers = () => {
   const initialUsers = [
@@ -20,27 +20,21 @@ const createInitialUsers = () => {
       fullName: "adminfullName",
       email: "admin@gmail.com",
       password: "admin",
-      role: "admin",
       createdAt: new Date(),
       updatedAt: new Date(),
     },
     {
-      firstName: "AuthorFirstName",
-      lastName: "AuthorLastName",
+
       fullName: "authorfullName",
       email: "author@gmail.com",
       password: "author",
-      role: "author",
       createdAt: new Date(),
       updatedAt: new Date(),
     },
     {
-      firstName: "UserFirstName",
-      lastName: "UserLastName",
       fullName: "userfullName",
       email: "user@gmail.com",
       password: "user",
-      role: "reader",
       createdAt: new Date(),
       updatedAt: new Date(),
     },
@@ -55,15 +49,12 @@ const createFakeUser = () => {
   const [passwordHash, passwordSalt] = hashPassword(faker.internet.password())
 
   return {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
     fullName: faker.internet.userName(),
     email: faker.internet.email(),
     passwordHash,
     passwordSalt,
     createdAt: faker.datatype.datetime(),
     updatedAt: faker.datatype.datetime(),
-    role: getRandomRole(),
   }
 }
 

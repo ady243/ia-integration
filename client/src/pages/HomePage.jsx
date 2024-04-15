@@ -1,7 +1,7 @@
-
 import ChatBot from './ChatBotPage';
-import Sidebar from '../components/SideBar';
 import Header from '../components/Header';
+import "./pages.css";
+
 
 export const HomePage = () => {
 
@@ -9,7 +9,8 @@ export const HomePage = () => {
     return (
         <div>
             <Header/>
-           <ChatBot />
+            <ChatBot/>
+    
         </div>
     );
 }
