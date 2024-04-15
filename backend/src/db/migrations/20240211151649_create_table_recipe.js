@@ -7,7 +7,11 @@ export async function up(knex) {
     table.increments("id")
     table.string("name", 255)
     table.string("description", 255)
-    table.boolean("isFavorite")
+    table.string("ingredients", 255)
+    table.integer("duration")
+    table.boolean("isFavorite"),
+    table.string("instructions", 4000)
+    table.string("imageUrl", 255)
   })
 }
 

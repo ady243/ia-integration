@@ -22,14 +22,33 @@ export const getSuggestedRecipe = async (req, res) => {
   }
 };
 
-export const createRecipe = async (req, res, next) => {
+// export const createRecipe = async (req, res, next) => {
+//   try {
+//     const newRecipe = await recipeService.create(req.body)
+//     res.status(201).json(newRecipe)
+//   } catch (error) {
+//     next(error)
+//   }
+// }
+
+export const createRecipe = async (req, res) => {
   try {
-    const newRecipe = await recipeService.create(req.body)
-    res.status(201).json(newRecipe)
+    const { name, description, imageUrl , isFavorite } = req.body;
+
+    // Créer une nouvelle recette
+    const newRecipe = await Recipe.query().insert({
+      name,
+      description,
+      isFavorite,
+      imageUrl: imageUrl // Assurez-vous que le nom de la colonne correspond à votre table
+    });
+
+    res.status(201).json(newRecipe);
   } catch (error) {
-    next(error)
+    console.error('Erreur lors de la création de la recette :', error);
+    res.status(500).json({ message: 'Erreur lors de la création de la recette' });
   }
-}
+};
 
 
 export const getRecipeById = async (req, res, next) => {
@@ -59,16 +78,17 @@ export const deleteRecipe = async (req, res, next) => {
   }
 };
 
-
-export const searchRecipes = async (req, res, next) => {
+export const searchRecipes = async (req, res) => {
   try {
-    const results = await recipeService.searchRecipes(req.query.searchTerm, req.query.page);
-    res.json(results);
+    const searchTerm = req.query.search;
+    const recipes = await Recipe.query().where('name', 'ilike', `%${searchTerm}%`);
+    res.json(recipes);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Oops, something went wrong" });
+    console.error('Erreur lors de la recherche des recettes :', error);
+    res.status(500).json({ message: 'Erreur lors de la recherche des recettes' });
   }
 };
+
 
 export const getRecipeSummary = async (req, res, next) => {
   try {
