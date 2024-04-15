@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import { RecipeContext } from "../hook/useRecipesProvider";
+import { RecipeContext } from "../hook/RecipesProvider";
 import { computeSimilarity, tokenizeRecipeText } from "../utils/textSimilarity";
 import Grocery from "../pages/Grocery"
 import Sidedish from "../pages/Sidedish"

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect, useContext } from 'react';
-import { RecipeContext } from '../hook/useRecipesProvider';
+import { RecipeContext } from '../hook/RecipesProvider';
+import Button from './Button';
 
 const RecipesList = ({ searchTerm }) => {
     const { recipes } = useContext(RecipeContext);
@@ -25,28 +26,27 @@ const RecipesList = ({ searchTerm }) => {
 
     return (
         <div className="flex flex-wrap justify-center" style={{ marginTop: "535px"}}>
-          
-            {Array.isArray(filteredRecipes) && filteredRecipes.map(recipe => (
-                <div key={recipe.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4">
-                     <img className="w-full" src={recipe.imageUrl} alt={recipe.name} /> 
-                    <div className="px-6 py-4">
-                        <div className="font-bold text-xl mb-2">{recipe.name}</div>
-                        <p className="text-gray-700 text-base">
+        {Array.isArray(filteredRecipes) && filteredRecipes.map(recipe => (
+            <div key={recipe.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4 flex flex-col" style={{ maxWidth: "350px", maxHeight: "600px" }}>
+                <img className="w-full" src={recipe.imageUrl} alt={recipe.name} style={{ maxHeight: "200px", objectFit: "cover" }} /> 
+                <div className="px-6 py-4 flex-grow">
+                    <div className="font-bold text-xl mb-2">{recipe.name}</div>
+                    <p className="text-gray-700 text-base">
                         {truncateDescription(recipe.instructions, 300)}
-                        </p>
-                    </div>
-                    <div className="px-6 pt-4 pb-2">
-                    </div>
+                    </p>
+                </div>
+                <div className="px-6 pt-4 pb-2">
+                </div>
+                <div className="mt-auto mb-4">
                     <Link to={`/recipe/${recipe.id}`}>
-                    <div className="flex justify-center mt-4"> 
-                    <button className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
-                        Voir plus
-                    </button>
+                        <div className="flex justify-center"> 
+                            <Button text="Voir la recette" />
+                        </div>
+                    </Link>
                 </div>
-                </Link>
-                </div>
-            ))}
-        </div>
+            </div>
+        ))}
+    </div>
     );
 };
 

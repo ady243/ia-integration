@@ -35,12 +35,6 @@ const App = () => {
         }
     };
 
-    useEffect(() => {
-        if (selectedRecipeId) {
-            generateSideDish();
-        }
-    }, [selectedRecipeId]);
-
     const handleCloseModal = () => {
         setShowModal(false);
     };

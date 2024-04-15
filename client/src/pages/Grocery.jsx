@@ -35,12 +35,6 @@ const App = () => {
         }
     };
 
-    useEffect(() => {
-        if (selectedRecipeId) {
-            generateGroceryList();
-        }
-    }, [selectedRecipeId]);
-
     const handleCloseModal = () => {
         setShowModal(false);
     };
