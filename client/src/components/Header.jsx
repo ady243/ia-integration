@@ -55,7 +55,7 @@ const Header = () => {
             <div className="absolute top-0 right-12 mr-4 ">
             <button type="button" onClick={toggleMenu} className="inline-flex justify-center items-center text-sm font-medium text-back  focus:outline-none flex "
                 style={styleButton}> <pan  style={{marginRight: "10px", fontSize:"1.5rem"}}> <SlSettings /></pan>
-               {user ? user.fullName : 'None'} 
+              {user && user.fullName ? user.fullName : 'None'}
                     <span style={StyleIcon}>
                         {isOpen ? <SlArrowUp /> : <SlArrowDown />}
                     </span>

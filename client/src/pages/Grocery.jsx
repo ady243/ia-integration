@@ -3,10 +3,10 @@ import Button from '../components/Button.jsx';
 import ModalGrocery from '../components/ModalGrocery.jsx';
 import RecipeLoader from '../components/load/RecipeLoader.jsx';
 import { API_URL } from '../configUrl';
-import { useParams } from 'react-router-dom'; // Importer le hook useParams
+import { useParams } from 'react-router-dom'; 
 
 const App = () => {
-    const { id } = useParams(); // Récupérer l'ID de l'URL
+    const { id } = useParams();
     const [selectedRecipeId, setSelectedRecipeId] = useState(null);
     const [groceryList, setGroceryList] = useState('');
     const [showModal, setShowModal] = useState(false);

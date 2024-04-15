@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import { HookContext } from '../hook/useHookProvider';
 import useFavorite from "../hook/useFavorite";
 import Button from "../components/Button";
+import { SlArrowLeft } from "react-icons/sl";
 
 export default function Favorite() {
     const { currentUser } = useContext(HookContext); 
@@ -20,9 +21,7 @@ export default function Favorite() {
 
     useEffect(() => {
         const storedUser = localStorage.getItem('currentUser');
-        console.log('Stored user:', storedUser);
-        const userId = JSON.parse(storedUser).id;
-        console.log('User id:', userId);
+      
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
@@ -32,7 +31,7 @@ export default function Favorite() {
         const fetchFavorites = async () => {
             try {
                 const data = await getAllToggleFavorite();
-                //display the name of the recipe
+         
                 console.log('Favorite data:', data);
             
                 setFavorites(data);
@@ -47,8 +46,19 @@ export default function Favorite() {
     return (
         <div className="container mx-auto">
             <Header />
+            <div>
+            <Link to="/" className="flex items-center  text-sm ">
+                        <SlArrowLeft className="mr-2" /> Retour
+            </Link>
+            </div>
+          
             <div className="flex flex-wrap justify-center">
-                <div className="mt-12">
+              <span class="relative flex h-3 w-3 mt-24">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-sky-500" flex></span>
+                En construction ...
+                </span>
+                <div className="mt-24">
                 {favorites.map(favorite => (
                     
                     <div key={favorite.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4 flex flex-col" style={{ maxWidth: "350px", maxHeight: "600px" }}>

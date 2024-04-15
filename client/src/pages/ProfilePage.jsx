@@ -29,16 +29,20 @@ const ProfilPage = () => {
     useEffect(() => {
         if (currentUser) {
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            console.log(currentUser);
             setUser(currentUser);
         }
     }, [currentUser]);
   
-        useEffect(() => {
+    useEffect(() => {
         const storedUser = localStorage.getItem('currentUser');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
+        } else if (currentUser) {
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            setUser(currentUser);
         }
-        }, [])
+    }, [currentUser]);
 
 
     const handleAddAllergy = async (e) => {
@@ -66,7 +70,7 @@ const ProfilPage = () => {
                
             </div>
                 <div className="bg-white  rounded-md p-6 ">
-                <Link to="/" className="flex items-center text-white text-sm bg-[#0ab3b3]">
+                   <Link to="/" className="flex items-center text-white text-sm bg-[#0ab3b3]">
                         <SlArrowLeft className="mr-2" /> Retour
                     </Link>
                     <h2 className="text-xl font-bold mb-4 mt-8">Mes informations</h2>

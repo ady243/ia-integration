@@ -21,6 +21,9 @@ export const HookProvider = ({ children }) => {
 
     const saveCurrentUser = (user) => { 
         setCurrentUser(user);
+        if (user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+        }
     };
 
     const login = async (email, password) => {
@@ -35,7 +38,8 @@ export const HookProvider = ({ children }) => {
                 throw data;
             }
             saveToken(data.token);
-            saveCurrentUser(data.user);
+            saveCurrentUser(data.user); 
+            
         } catch (error) {
             console.error(error);
             throw error;
@@ -83,9 +87,10 @@ export const HookProvider = ({ children }) => {
     }
 
     const logout = () => {
-        setToken(null);
-        setCurrentUser(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('currentUser'); 
+        setCurrentUser(null);
+        setToken(null);
     };
 
     useEffect(() => {

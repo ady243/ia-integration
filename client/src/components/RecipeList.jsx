@@ -37,10 +37,8 @@ const RecipesList = ({ searchTerm }) => {
 
     useEffect(() => {
         const storedUser = localStorage.getItem('currentUser');
-        console.log('Stored user:', storedUser);
-        const userId = JSON.parse(storedUser).id;
-        console.log('User id:', userId);
         if (storedUser) {
+            const userId = JSON.parse(storedUser).id;
             setUser(JSON.parse(storedUser));
         }
     }, [])

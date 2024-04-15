@@ -23,10 +23,22 @@ export const RecipeProvider = ({ children }) => {
     fetchRecipes();
   }, []);
 
+  const getRecipeById = async (id) => {
+    try {
+      const response = await fetch(`${API_URL}/api/recipes/${id}`);
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <RecipeContext.Provider
       value={{
         recipes,
+        getRecipeById,
+        data,
       }}
     >
       {children}
