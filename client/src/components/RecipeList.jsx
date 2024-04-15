@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect, useContext } from 'react';
-import { RecipeContext } from '../hook/RecipesProvider';
+import { RecipeContext } from '../hook/useRecipesProvider';
 
 const RecipesList = ({ searchTerm }) => {
     const { recipes } = useContext(RecipeContext);

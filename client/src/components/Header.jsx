@@ -30,7 +30,7 @@ const Header = () => {
 
     
      const styleButton ={
-        backgroundColor: isOpen ? '#f3f4f6' : '#000',
+        backgroundColor: isOpen ? 'white' : '#0ab3b3',
         color: isOpen ? '#000' : '#fff',
         border: isOpen ? '1px solid #000' : '1px solid #fff',
         borderRadius: '9px',
@@ -46,13 +46,14 @@ const Header = () => {
         zIndex: "1",
         transition: "transform 0.3s",
         transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+      
      }
 
 
     return (
         <div className="text-left bg-black relative mt-8">
-            <div className="absolute top-0 right-12 mr-4">
-            <button type="button" onClick={toggleMenu} className="inline-flex justify-center items-center text-sm font-medium text-back  focus:outline-none flex"
+            <div className="absolute top-0 right-12 mr-4 ">
+            <button type="button" onClick={toggleMenu} className="inline-flex justify-center items-center text-sm font-medium text-back  focus:outline-none flex "
                 style={styleButton}> <pan  style={{marginRight: "10px", fontSize:"1.5rem"}}> <SlSettings /></pan>
                {user ? user.fullName : 'None'} 
                     <span style={StyleIcon}>
@@ -63,7 +64,7 @@ const Header = () => {
 
             {isOpen && (
                <div className="origin-top-right absolute right-12 mt-12 w-56 shadow-lg">
-               <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+               <div className="py-1 bg-white" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                    <Link to="/favorites" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex" role="menuitem">
                        <span style={{marginRight: "10px"}}><SlHeart /></span> Mes favoris
                    </Link>
