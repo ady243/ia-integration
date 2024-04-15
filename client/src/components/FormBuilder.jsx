@@ -8,6 +8,7 @@ const Field = ({ field }) => {
         case 'email':
         case 'number':
         case 'date':
+        case 'textarea':
         case 'file':
             return (
                 <input 
@@ -18,6 +19,7 @@ const Field = ({ field }) => {
                     value={field.value}
                     onChange={field.onChange}
                     style={field.style} 
+                    
                 />
             );
         case 'button':

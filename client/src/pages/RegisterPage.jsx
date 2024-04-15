@@ -82,12 +82,9 @@ const RegisterPage = () => {
     return (
         <>
         <div className='text-center mt-28'>
+                        <img src="https://zupimages.net/up/24/15/just.png" alt="logo" className="mx-auto" style={{width: '200px'}} />
             <h1 style={{fontSize: '2rem', color: '#444'}}>Créer un compte</h1>
-            {error && (
-                <div className="error-message">
-                    <p>{error.message}</p>
-                </div>
-            )}
+            {error && error.error && <p className="text-red-500 text-sm">{error.error.message}</p>}
             <div className="bg-white rounded px-8 pt-6 pb-8 mb-4 max-w-lg mx-auto">
                 <FormBuilder fields={fields} />
                 <p className="text-sm text-gray-600 mt-4">

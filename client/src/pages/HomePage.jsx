@@ -1,17 +1,29 @@
 
-import ChatBot from './ChatBotPage';
-import Sidebar from '../components/SideBar';
-import Header from '../components/Header';
+import ChatBot from "./ChatBotPage";
+import Header from "../components/Header";
+import Navbar from "../components/Navbar";
+import RecipesList from "../components/RecipeList";
+import { useState } from "react";
+
+
 
 export const HomePage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
 
-    return (
-        <div>
-            <Header/>
-           <ChatBot />
-        </div>
-    );
-}
+  return (
+    <div>
+      <Navbar onSearch={handleSearch} />
+      <Header />
+      <RecipesList searchTerm={searchTerm} />
+      <ChatBot />
+    </div>
+  );
+};
+
 
 export default HomePage;
+

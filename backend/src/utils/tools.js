@@ -22,3 +22,8 @@ export const checkRequiredFields = (object, requiredFields) => {
   })
   return missingFields
 }
+
+export const getRandomRole = () => {
+  const roles = ["admin", "author", "reader"]
+  return roles[Math.floor(Math.random() * roles.length)]
+}

@@ -13,48 +13,51 @@ export const conversation = async (req, res, next) => {
 
     // 1. Récupération de l'utilisateur connecté
 
+
     // 2. Récupération de la conversation en cours / création d'une nouvelle conversation
-    const conversations = await conversationService.findAllByUserId(
+    let userConversation = await conversationService.findAllByUserId(
       currentUserId
     )
     // console.log("currentUserId", currentUserId)
 
     // console.log("conversations", conversations)
-
-    const conversation = conversations[0]
-      ? conversations[0]
-      : await conversationService.create({
+    if(userConversation === undefined){
+       await conversationService.create({
           user_id: currentUserId,
           created_at: new Date().toISOString(),
         })
 
+      userConversation = await conversationService.findAllByUserId(currentUserId)
+    }
+
+
     // get conversation messages
-    const messages = await conversationService.getMessages(conversation.id)
-    conversation.messages = messages
+    const messages = await conversationService.getMessages(userConversation.id)
+    userConversation.messages = messages
 
     // 3. Appel du service pour démarrer la conversation
     // check if conversation has started or not (messages exist or not)
-    if (conversation.messages.length === 0) {
+    if (userConversation.messages.length === 0) {
       console.log("message start", message)
-      const response = await chatbotService.startChat(message, conversation.id)
+      const response = await chatbotService.startChat(message, userConversation.id, currentUserId)
       return res.status(200).json(response) 
     }
   
 
     // filter fiels from conversation object
-    const conversationHistory = conversation.messages.map((message) => {
-      //console.log("message", message)
-      return {
-        role: message.role,
-        content: message.content,
-      }
+    const conversationHistory = userConversation.messages.map((message) => {
+        //console.log("message", message)
+        return {
+          role: message.role,
+          content: message.content,
+        }
     })
 
     // 4. Appel du service pour continuer la conversation
     const response = await chatbotService.continueChat(
       message,
       conversationHistory,
-      conversation.id
+      userConversation.id
     )
 
     res.status(200).json(response)
